@@ -30,6 +30,11 @@ body{
     margin-top: 10px;
     font-weight: 300;
 }
+.headerText h3 {
+    font-size: clamp(1rem, 3vw, 15px);
+    margin-top: 10px;
+    font-weight: 300;
+}
 
 /* Socials Section */
 .socials {
@@ -80,6 +85,7 @@ body{
 .socials a[href*="orcid"]:hover svg { fill: #A6CE39; }          /* ORCID */
 .socials a[href*="linkedin"]:hover svg { fill: #0077B5; }       /* LinkedIn */
 .socials a[href*="github"]:hover svg { fill: #181717; }         /* GitHub */
-.socials a[href*="x"]:hover svg { fill: #1DA1F2; }              /* Twitter (X) */
+.socials a[href*="x"]:hover svg { fill: #181717; }              /* X */
 .socials a[href*="instagram"]:hover svg { fill: #ff0069; }      /* Instagram */
 .socials a[href*="mailto:"]:hover svg { fill: #EA4335; }        /* Gmail */
+
