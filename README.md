@@ -1,4 +1,4 @@
-Personal Website & Portfolio
+## Personal Website & Portfolio
 
 Welcome to the repository for my personal website! This project is designed with minimalist aesthetic and responsive layouts. It serves as a digital space to share my background and personal interests.
 
