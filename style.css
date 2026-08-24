@@ -565,6 +565,8 @@ body.resume-page {
     background-color: #ffffff;
     color: #000000;
     line-height: 1.6;
+    padding: 0;
+    margin: 0;
 }
 
 .resume-page h1, .resume-page h2, .resume-page .brand {
