@@ -96,5 +96,74 @@
 
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const inputElement = document.getElementById("typing-text");
+            const dropdown = document.getElementById("dropdown-results");
+            const links = document.querySelectorAll(".suggestion-link");
+            
+            const scriptSequence = "pritawwm\b\b\bm saha"; 
+            let currentText = "";
+            let index = 0;
+
+            inputElement.focus();
+
+            function updateSuggestions(currentInput) {
+                const lowerInput = currentInput.toLowerCase();
+
+                links.forEach(link => {
+                    const fullText = link.getAttribute("data-text");
+                    const lowerFull = fullText.toLowerCase();
+                    const matchIndex = lowerFull.indexOf(lowerInput);
+                    
+                    if (matchIndex !== -1) {
+                        const before = fullText.substring(0, matchIndex);
+                        const match = fullText.substring(matchIndex, matchIndex + currentInput.length);
+                        const after = fullText.substring(matchIndex + currentInput.length);
+                        
+                        link.innerHTML = `<b>${before}</b>${match}<b>${after}</b>`;
+                    } else {
+                        link.innerHTML = `<b>${fullText}</b>`;
+                    }
+                });
+            }
+
+            function typeLetter() {
+                if (index < scriptSequence.length) {
+                    if (index === 0) {
+                        dropdown.style.display = "block";
+                    }
+                    
+                    const char = scriptSequence.charAt(index);
+
+                    if (char === '\b') {
+                        currentText = currentText.slice(0, -1);
+                    } else {
+                        currentText += char;
+                    }
+                    
+                    inputElement.value = currentText;
+                    updateSuggestions(currentText);
+                    
+                    index++;
+                    
+                    let typingSpeed = Math.floor(Math.random() * 130) + 120;
+
+                    if (char === 'm' && currentText === "pritawwm") {
+                        typingSpeed += 800; 
+                    } else if (scriptSequence.charAt(index) === '\b') {
+                        typingSpeed = 200;
+                    } else if (char === ' ') {
+                        typingSpeed += 1000; 
+                    }
+
+                    setTimeout(typeLetter, typingSpeed);
+                }
+            }
+
+            setTimeout(typeLetter, 2000);
+        });
+    </script>
+
 </body>
 </html>
