@@ -6,16 +6,14 @@
 
 html {
     scroll-behavior: smooth;
+    background-color: #ffffff !important;
+    -webkit-tap-highlight-color: transparent;
 }
-
-
-
-
 
 /*HOMEPAGE*/
 body {
     font-family: arial, sans-serif;
-    background-color: #fff;
+    background-color: #ffffff !important; 
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -24,6 +22,8 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     box-sizing: border-box;
+    min-height: 100vh;
+    min-height: -webkit-fill-available; 
 }
 
 .logo {
@@ -36,6 +36,8 @@ body {
 }
 
 .search-container {
+    transform: translateZ(0);
+    will-change: transform;
     width: 100%;
     max-width: 584px;
     background: #fff;
