@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Our Date</title>
+    <meta name="description" content="Personal portfolio and research interests of Pritam Saha.">
+    <link rel="canonical" href="https://pritamsaha.co.in/date">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="date.css">
+    <link rel="manifest" href="images/site.webmanifest">
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-623120DN5V"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-623120DN5V');
+</script>
+
+</head>
+
+<body>
+
+    <div class="card">
+        <form id="dateForm" action="https://formspree.io/f/xrpzwygj" method="POST">
+            
+            <div class="step active" id="step0" style="text-align: center;">
+                <h2>Wait a minute...</h2>
+                <p class="subtitle" style="font-size: 1.1rem;">Why are you so curious? Do you want to go out sometime?</p>
+
+                <div class="btn-group trap-group">
+                    <button type="button" class="btn" onclick="nextStep(1)">Yes</button>
+                    <button type="button" class="btn secondary" id="noBtn">No</button>
+                </div>
+            </div>
+
+            <div class="step" id="step1">
+                <h2>Pick a Day & Time</h2>
+                <p class="subtitle">Let's find a time that works.</p>
+
+                <label for="date">When are you free?</label>
+                <input type="date" id="date" name="Date" required>
+
+                <label for="time">What time works best?</label>
+                <input type="time" id="time" name="Time" required>
+
+                <button type="button" class="btn" onclick="nextStep(2)">Next</button>
+            </div>
+
+            <div class="step" id="step2">
+                <h2>Your Preferences</h2>
+                
+                <label for="vibe">What do you have planned for us?</label>
+                <select id="vibe" name="Activity Vibe" required>
+                    <option value="" disabled selected>-- choose an option --</option>
+                    <option value="Coffee">Coffee & Walk</option>
+                    <option value="Games">Games and Fun</option>
+                    <option value="Museum">Museum/ Art Gallery</option>
+                    <option value="Dinner">Dinner & Drinks</option>
+                    <option value="Outdoor">Outdoor Adventure</option>
+                </select>
+
+                <label for="cuisine">What are you craving?</label>
+                <select id="cuisine" name="Cuisine Preference" required>
+                    <option value="" disabled selected>-- choose an option --</option>
+                    <option value="Italian">Italian/ Pasta & Pizza</option>
+                    <option value="Indo-Chinese">Indo-Chinese</option>
+                    <option value="Street Food">Street Food Adventure</option>
+                    <option value="Just Drinks">Just Drinks/ Coffee</option>
+                    <option value="Surprise">Surprise Me!</option>
+                </select>
+
+                <div class="btn-group">
+                    <button type="button" class="btn secondary" onclick="prevStep(1)">Back</button>
+                    <button type="button" class="btn" onclick="nextStep(3)">Next</button>
+                </div>
+            </div>
+
+            <div class="step" id="step3">
+                <h2>All Set!</h2>
+
+                <label for="contact">Social Handle or Email</label>
+                <input type="text" id="contact" name="Contact Info" placeholder="So I can reply!" required>
+
+                <label for="notes">Anything else I should know?</label>
+                <textarea id="notes" name="Additional Notes" rows="3" placeholder="Music taste, green/red flags, favorite spot..."></textarea>
+
+                <input type="text" name="_gotcha" style="display:none">
+
+                <div class="btn-group">
+                    <button type="button" class="btn secondary" onclick="prevStep(2)">Back</button>
+                    <button type="submit" class="btn">Send</button>
+                </div>
+            </div>
+
+            <div class="step" id="step4" style="text-align: center;">
+                <h2>It's a Date!</h2>
+                <p>Your responses have been sent directly to me. Keep an eye on your messages; I'll be in touch soon to confirm the details!</p>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        function nextStep(stepNumber) {
+            const currentStep = document.querySelector('.step.active');
+    
+            const requiredFields = currentStep.querySelectorAll('input[required], select[required]');
+    
+            let allValid = true;
+    
+            for (let field of requiredFields) {
+                if (!field.checkValidity()) {
+                    field.reportValidity();
+                    allValid = false;
+                    break;
+                }
+            }
+    
+            if (allValid) {
+                currentStep.classList.remove('active');
+                document.getElementById('step' + stepNumber).classList.add('active');
+            }
+        }
+
+        function prevStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById('step' + stepNumber).classList.add('active');
+        }
+
+        const today = new Date();
+        const yyyy = today.getFullYear();
+
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+
+        const formattedToday = `${yyyy}-${mm}-${dd}`;
+
+        document.getElementById('date').setAttribute('min', formattedToday);
+
+        const noBtn = document.getElementById('noBtn');
+
+        function runaway(e) {
+            e.preventDefault(); 
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.zIndex = '9999';
+            
+            const maxX = window.innerWidth - noBtn.offsetWidth - 20; 
+            const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+            
+            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+            
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        noBtn.addEventListener('mouseover', runaway);
+        noBtn.addEventListener('touchstart', runaway);
+        noBtn.addEventListener('click', runaway);
+
+        const form = document.getElementById('dateForm');
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault(); 
+            const data = new FormData(form);
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                if (response.ok) {
+                    nextStep(4); 
+                    form.reset(); 
+                } else {
+                    alert("Oops! There was a problem submitting your form. Make sure you entered a valid Formspree ID.");
+                }
+            } catch (error) {
+                alert("Oops! Network error. Drop a message in my social media.");
+            }
+        });
+    </script>
+</body>
+</html>

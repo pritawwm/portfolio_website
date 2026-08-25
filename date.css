@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.card {
+    background: #ffffff;
+    padding: 35px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.step {
+    display: none;
+    flex-direction: column;
+}
+
+.step.active {
+    display: flex;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.subtitle {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+label {
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #444;
+    font-size: 0.9rem;
+}
+
+input, select, textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #e91e63;
+    box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.1);
+}
+
+.btn-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.trap-group {
+    justify-content: center;
+    min-height: 50px;
+}
+
+.trap-group .btn {
+    width: 120px;
+    margin-top: 0;
+}
+
+.btn {
+    background-color: #e91e63;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn.secondary {
+    background-color: #eee;
+    color: #444;
+    width: 40%;
+}
+
+#noBtn {
+    width: 120px !important;
+    transition: left 0.3s ease-out, top 0.3s ease-out, background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #d81557;
+}
+
+.btn.secondary:hover {
+    background-color: #e0e0e0;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
