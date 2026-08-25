@@ -59,9 +59,10 @@ body {
     color: #202124;
     outline: none;
     border: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    background: transparent;
+    font-family: inherit;
+    padding: 0;
+    width: 100%;
 }
 
 .mic-icon {
