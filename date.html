@@ -142,7 +142,7 @@
 
         document.getElementById('date').setAttribute('min', formattedToday);
 
-                const dateInput = document.getElementById('date');
+        const dateInput = document.getElementById('date');
         const timeInput = document.getElementById('time');
 
         dateInput.addEventListener('change', function() {
@@ -155,16 +155,39 @@
 
             if (this.value === formattedToday) {
                 const bufferTime = new Date();
+                const currentDay = bufferTime.getDate();
         
                 bufferTime.setHours(bufferTime.getHours() + 1);
         
-                const hours = String(bufferTime.getHours()).padStart(2, '0');
-                const minutes = String(bufferTime.getMinutes()).padStart(2, '0');
-                const minTime = `${hours}:${minutes}`;
+                let minTime;
+                if (bufferTime.getDate() !== currentDay) {
+                    minTime = "23:59"; 
+                } else {
+                    const hours = String(bufferTime.getHours()).padStart(2, '0');
+                    const minutes = String(bufferTime.getMinutes()).padStart(2, '0');
+                    minTime = `${hours}:${minutes}`;
+                }
         
                 timeInput.setAttribute('min', minTime);
+                
+                if (timeInput.value && timeInput.value < minTime) {
+                    timeInput.setCustomValidity("Please give me at least an hour to get ready!");
+                } else {
+                    timeInput.setCustomValidity("");
+                }
             } else {
                 timeInput.removeAttribute('min');
+                timeInput.setCustomValidity("");
+            }
+        });
+
+        timeInput.addEventListener('input', function() {
+            const minTime = this.getAttribute('min');
+            
+            if (minTime && this.value && this.value < minTime) {
+                this.setCustomValidity("Please give me at least an hour to get ready!");
+            } else {
+                this.setCustomValidity("");
             }
         });
         
@@ -188,11 +211,10 @@
 
         noBtn.addEventListener('mouseover', runaway);
         noBtn.addEventListener('touchstart', runaway);
-        noBtn.addEventListener('click', runaway);
 
         noBtn.addEventListener('click', function(e) {
             runaway(e);
-            alert("Nice try, but 'No' is not an option! 😉");
+            alert("Nice try, but 'No' is not an option!");
         });
 
         const form = document.getElementById('dateForm');
