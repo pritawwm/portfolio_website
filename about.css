@@ -321,15 +321,18 @@
 
     .header-top {
         padding-left: 0;
-        gap: 10px;
+        gap: 10px; 
+        width: 100%;
     }
 
     .serp-logo {
         margin-right: 0;
-        height: 24px;
+        height: 24px; 
     }
 
     .serp-search-box {
         padding: 8px 15px;
+        flex: 1;
+        width: auto;
     }
 }
