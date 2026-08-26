@@ -225,12 +225,23 @@
 
 .football-svg {
     width: 100%;
-    max-width: 340px;
+    max-width: 320px;
     height: auto;
     display: block;
     margin: 0 auto;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, rgba(255, 255, 255, 0) 65%);
-    padding: 20px;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.ball-shadow {
+    width: 160px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.08); 
+    border-radius: 50%;
+    margin: -55px auto 30px auto; 
+    position: relative;
+    z-index: 1;
 }
 
 .chess-container {
@@ -262,7 +273,9 @@
 .light { background-color: #efebe9; }
 .dark { background-color: #a1887f; }
 
-.highlight-move { background-color: #81c995; }
+.highlight-move {
+    background-color: rgba(220, 185, 80, 0.55);
+}
 
 .wp { background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg'); }
 .wr { background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg'); }
