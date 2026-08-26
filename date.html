@@ -169,14 +169,13 @@
                 }
         
                 timeInput.setAttribute('min', minTime);
-                
-                if (timeInput.value && timeInput.value < minTime) {
-                    timeInput.setCustomValidity("Please give me at least an hour to get ready!");
-                } else {
-                    timeInput.setCustomValidity("");
-                }
             } else {
                 timeInput.removeAttribute('min');
+            }
+            
+            if (timeInput.value) {
+                timeInput.dispatchEvent(new Event('input'));
+            } else {
                 timeInput.setCustomValidity("");
             }
         });
@@ -184,8 +183,21 @@
         timeInput.addEventListener('input', function() {
             const minTime = this.getAttribute('min');
             
-            if (minTime && this.value && this.value < minTime) {
-                this.setCustomValidity("Please give me at least an hour to get ready!");
+            if (minTime && this.value) {
+                const now = new Date();
+                const currentHours = String(now.getHours()).padStart(2, '0');
+                const currentMinutes = String(now.getMinutes()).padStart(2, '0');
+                const currentTime = `${currentHours}:${currentMinutes}`;
+                
+                if (this.value < currentTime) {
+                    this.setCustomValidity("You can't select a time in the past!");
+                } 
+                else if (this.value < minTime) {
+                    this.setCustomValidity("Please give me at least an hour to get ready!");
+                } 
+                else {
+                    this.setCustomValidity("");
+                }
             } else {
                 this.setCustomValidity("");
             }
