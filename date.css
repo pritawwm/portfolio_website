@@ -118,6 +118,9 @@ input:focus, select:focus, textarea:focus {
 
 #noBtn {
     width: 120px !important;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none; 
+    touch-action: none;
     transition: left 0.3s ease-out, top 0.3s ease-out, background-color 0.2s;
 }
 
