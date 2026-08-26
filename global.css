@@ -8,6 +8,7 @@ html {
     scroll-behavior: smooth;
     background-color: #ffffff !important;
     -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
 }
 
 body {
