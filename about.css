@@ -32,12 +32,13 @@
 }
 
 .serp-search-box input {
-    flex-grow: 1;
+    flex: 1 1 0%;
+    min-width: 0;
+    width: 100%;
     border: none;
     outline: none;
     font-size: 16px;
     color: #202124;
-    min-width: 0;
 }
 
 .search-icons {
@@ -321,18 +322,22 @@
 
     .header-top {
         padding-left: 0;
-        gap: 10px; 
+        gap: 12px;
+        display: flex;
+        flex-wrap: nowrap;
         width: 100%;
     }
 
     .serp-logo {
         margin-right: 0;
-        height: 24px; 
+        height: 24px;
+        flex-shrink: 0;
     }
 
     .serp-search-box {
         padding: 8px 15px;
-        flex: 1;
-        width: auto;
+        flex: 1 1 0%;
+        min-width: 0;
+        width: 100%;
     }
 }
