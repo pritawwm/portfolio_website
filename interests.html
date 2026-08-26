@@ -27,7 +27,7 @@
 <body class="exhibit-body">
 
     <header class="ac-header">
-        <a href="index.html" class="ac-logo-link">
+        <a href="/index" class="ac-logo-link">
             <img src="images/google_logo.svg" alt="Google" class="ac-logo">
             <span class="ac-title">Sports</span>
         </a>
@@ -147,10 +147,11 @@
                 <div class="cricket-stump-card">
                     <svg class="cricket-stump-svg" viewBox="-88 0 348 440" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <linearGradient id="bail-shade" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stop-color="#FFE65C" />
-                                <stop offset="45%" stop-color="#FFCC00" />
-                                <stop offset="100%" stop-color="#B28F00" />
+                            <linearGradient id="bail-wood" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#D6B88A" />
+                                <stop offset="25%" stop-color="#FDF1DF" />
+                                <stop offset="60%" stop-color="#E8D1B5" />
+                                <stop offset="100%" stop-color="#9A7B56" />
                             </linearGradient>
                         </defs>
                         <g fill="rgba(0, 0, 0, 0.05)">
@@ -191,18 +192,24 @@
                             </text>
                             <text transform="translate(141, 260) rotate(-90)" font-size="9">Lay's</text>
                             <text transform="translate(141, 298) rotate(-90)" font-size="10" fill="#000000">Reebok</text>
+                        <g fill="url(#bail-wood)">
+                            <rect x="23" y="34" width="16" height="6" rx="2"/>
+                            <rect x="38" y="30" width="9" height="14" rx="3.5"/>
+                            <rect x="46" y="30" width="9" height="14" rx="3.5"/>
+                            <rect x="54" y="30" width="9" height="14" rx="3.5"/>
+                            <rect x="62" y="30" width="9" height="14" rx="3.5"/>
+                            <rect x="70" y="30" width="9" height="14" rx="3.5"/>
+                            <rect x="78" y="34" width="7" height="6" rx="2"/>
                         </g>
-                        <g fill="url(#bail-shade)">
-                            <rect x="22" y="30" width="62" height="10" rx="2"/>
-                            <circle cx="42" cy="35" r="8.5"/>
-                            <circle cx="53" cy="35" r="8.5"/>
-                            <circle cx="64" cy="35" r="8.5"/>
-                        </g>
-                        <g fill="url(#bail-shade)">
-                            <rect x="88" y="30" width="62" height="10" rx="2"/>
-                            <circle cx="108" cy="35" r="8.5"/>
-                            <circle cx="119" cy="35" r="8.5"/>
-                            <circle cx="130" cy="35" r="8.5"/>
+                        
+                        <g fill="url(#bail-wood)">
+                            <rect x="87" y="34" width="7" height="6" rx="2"/>
+                            <rect x="93" y="30" width="9" height="14" rx="3.5"/>
+                            <rect x="101" y="30" width="9" height="14" rx="3.5"/>
+                            <rect x="109" y="30" width="9" height="14" rx="3.5"/>
+                            <rect x="117" y="30" width="9" height="14" rx="3.5"/>
+                            <rect x="125" y="30" width="9" height="14" rx="3.5"/>
+                            <rect x="133" y="34" width="16" height="6" rx="2"/>
                         </g>
                         <text x="86" y="415" class="cricket-date" style="font-size: 40px;" text-anchor="middle">02.04.2011</text>
                     </svg>
@@ -234,6 +241,7 @@
             <div class="visual-col">
                 <div class="football-card" style="text-align: center;">
                     <img src="images/football-new.svg" alt="FIFA World Cup 2022 Ball" class="football-svg">
+                    <div class="ball-shadow"></div>
                     <p class="exhibit-caption" style="margin-top: 20px; padding-left: 0;">18.12.2022</p>
                 </div>
             </div>
