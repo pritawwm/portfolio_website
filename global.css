@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: #ffffff !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: arial, sans-serif;
+    background-color: #ffffff !important; 
+    margin: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    min-height: -webkit-fill-available; 
+}
