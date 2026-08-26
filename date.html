@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Plan Our Date</title>
     <meta name="description" content="Personal portfolio and research interests of Pritam Saha.">
     <link rel="canonical" href="https://pritamsaha.co.in/date">
@@ -189,6 +189,11 @@
         noBtn.addEventListener('mouseover', runaway);
         noBtn.addEventListener('touchstart', runaway);
         noBtn.addEventListener('click', runaway);
+
+        noBtn.addEventListener('click', function(e) {
+            runaway(e);
+            alert("Nice try, but 'No' is not an option! 😉");
+        });
 
         const form = document.getElementById('dateForm');
         form.addEventListener("submit", async function(event) {
