@@ -1,4 +1,3 @@
-/* Homepage-specific layout */
 body {
     display: flex;
     flex-direction: column;
@@ -150,6 +149,49 @@ body {
     font-style: italic;
     color: #70757a;
     cursor: pointer;
+}
+
+.nav-link {
+    cursor: pointer;
+    color: #70757a;
+    font-style: italic;
+    text-decoration: underline transparent;
+    transition: text-decoration 0.2s ease;
+}
+
+.nav-link:hover {
+    text-decoration: underline #70757a;
+}
+
+.modern-popup {
+    border: none;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #ffffff;
+}
+
+.modern-popup::backdrop {
+    background: rgba(0,0,0,0.5);
+}
+
+.modern-popup-btn {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.modern-popup-btn:hover {
+    background-color: #1557b0;
 }
 
 @media (max-width: 600px) {
