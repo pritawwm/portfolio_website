@@ -133,6 +133,8 @@
     const gameOverScreen = document.getElementById('gameOverScreen');
     const gameOverTitle = document.getElementById('gameOverTitle');
     const scoreDisplay = document.getElementById('finalScore');
+    const nameInput = document.getElementById('playerName');
+    const submitBtn = document.getElementById('submitScoreBtn');
     
     let isPlaying = false;
     let gameStarted = false; 
@@ -172,8 +174,8 @@
                 e.preventDefault();
                 startGame();
             } else if (gameOverScreen.classList.contains('active')) {
-                if (document.activeElement.id === 'playerName') {
-                    document.getElementById('submitScoreBtn').click();
+                if (document.activeElement === nameInput) {
+                    submitBtn.click();
                 } else {
                     e.preventDefault();
                     startGame();
@@ -433,9 +435,11 @@
 
         spawnTimer = 40;
         
+        nameInput.value = "";
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Publish Result";
+
         gameOverScreen.classList.remove('active');
-        document.getElementById('submitScoreBtn').disabled = false;
-        document.getElementById('submitScoreBtn').innerText = "Publish Result";
         
         document.getElementById('retryBtn').blur();
         
@@ -461,6 +465,41 @@
     }
 
     document.getElementById('retryBtn').addEventListener('click', startGame);
+
+    nameInput.addEventListener('input', () => {
+        submitBtn.disabled = nameInput.value.trim().length === 0;
+    });
+
+    submitBtn.addEventListener('click', async () => {
+        const authorName = nameInput.value.trim();
+        
+        if (!authorName) {
+            nameInput.focus();
+            return;
+        }
+
+        submitBtn.innerText = "Publishing...";
+        submitBtn.disabled = true;
+        
+        const scoreData = {
+            name: authorName,
+            score: currentPValue,
+            timestamp: new Date().getTime()
+        };
+
+        try {
+            await fetch(DB_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(scoreData)
+            });
+            submitBtn.innerText = "Published!";
+            fetchLeaderboard(); 
+        } catch (e) {
+            submitBtn.innerText = "Network Error";
+            submitBtn.disabled = false;
+        }
+    });
 
     const DB_URL = "https://dot-plot-runner-default-rtdb.asia-southeast1.firebasedatabase.app/scores.json";
 
@@ -535,31 +574,6 @@
             document.getElementById('leaderboardBody').innerHTML = '<tr><td colspan="3">Offline: Connect database to track scores.</td></tr>';
         }
     }
-
-    document.getElementById('submitScoreBtn').addEventListener('click', async () => {
-        const nameInput = document.getElementById('playerName').value.trim() || 'Anonymous';
-        const btn = document.getElementById('submitScoreBtn');
-        btn.innerText = "Publishing...";
-        
-        const scoreData = {
-            name: nameInput,
-            score: currentPValue,
-            timestamp: new Date().getTime()
-        };
-
-        try {
-            await fetch(DB_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(scoreData)
-            });
-            btn.innerText = "Published!";
-            btn.disabled = true;
-            fetchLeaderboard(); 
-        } catch (e) {
-            btn.innerText = "Network Error";
-        }
-    });
 
     drawInitialState();
     fetchLeaderboard();
