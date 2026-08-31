@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Data Plot Runner Game</title>
+    <title>The Outlier Escape Game</title>
     <meta name="description" content="Personal portfolio and research interests of Pritam Saha.">
     <link rel="canonical" href="https://pritamsaha.co.in/game">
     <link rel="stylesheet" href="game.css">
@@ -24,15 +24,15 @@
 
 <div class="game-wrapper">
     <div class="game-header">
-        <h2>Data Plot Runner game</h2>
+        <h2>The Outlier Escape Game</h2>
         <div class="instructions">
-            <span class="desktop-inst">Press [ENTER] or [SPACE] to Start. Press [SPACE] or [UP] arrow to Jump. Hold [DOWN] arrow to Duck.</span>
-            <span class="mobile-inst">Tap the screen to Start. Tap RIGHT half to Jump. Hold LEFT half to Dodge.</span>
+            <span class="desktop-inst"><span class="blink">Press [ENTER] to Start.</span> Press [SPACE] or [UP] arrow to Jump. Hold [DOWN] arrow to Duck.</span>
+            <span class="mobile-inst"><span class="blink">Tap the screen to Start.</span> Tap RIGHT half to Jump. Hold LEFT half to Duck.</span>
         </div>
     </div>
 
     <div class="canvas-container">
-        <button id="soundToggle" class="sound-toggle-btn" title="Toggle Sound">🔊</button>
+        <button id="soundToggle" class="sound-toggle-btn" title="Toggle Sound">[SOUND: ON]</button>
 
         <canvas id="gameCanvas" width="700" height="300"></canvas>
 
@@ -44,14 +44,14 @@
             </div>
             <div class="button-group">
                 <button class="btn" id="submitScoreBtn">Publish Result</button>
-                <button class="btn" id="retryBtn">Re-run Experiment</button>
+                <button class="btn" id="retryBtn">Re-run</button>
             </div>
         </div>
     </div>
 
     <div class="leaderboard-section">
         <div class="leaderboard-header">
-            <h3>Top 3</h3>
+            <h3>Leaderboard</h3>
             <div class="timer-text" id="resetTimer">Resets in: --d --h --m</div>
         </div>
         <table>
@@ -76,7 +76,7 @@
     const soundToggle = document.getElementById('soundToggle');
     soundToggle.addEventListener('click', () => {
         isMuted = !isMuted;
-        soundToggle.innerText = isMuted ? '🔇' : '🔊';
+        soundToggle.innerText = isMuted ? '[SOUND: OFF]' : '[SOUND: ON]';
     });
 
     function initAudio() {
@@ -154,8 +154,8 @@
     const player = {
         x: 80,
         y: GROUND_Y,
-        width: 24, 
-        height: 34, 
+        width: 14, 
+        height: 24, 
         vy: 0,
         gravity: 0.7,
         jumpPower: -11.5,
@@ -291,17 +291,27 @@
     }
 
     function spawnObstacle() {
-        const isFlying = Math.random() < 0.3; 
+        const type = Math.random(); 
         let obsWidth = 14;
-        let obsHeight = Math.random() * 30 + 40; 
-        let yPos = isFlying ? GROUND_Y - 70 : GROUND_Y - obsHeight;
+        let obsHeight; 
+        let yPos;
+
+        if (type < 0.25) {
+            obsHeight = 20;
+            yPos = GROUND_Y - 35;
+        } else if (type < 0.5) {
+            obsHeight = 20;
+            yPos = GROUND_Y - 60;
+        } else {
+            obsHeight = Math.random() * 20 + 20;
+            yPos = GROUND_Y - obsHeight;
+        }
 
         obstacles.push({
             x: canvas.width,
             y: yPos,
             width: obsWidth,
-            height: obsHeight,
-            isFlying: isFlying
+            height: obsHeight
         });
     }
 
@@ -328,13 +338,13 @@
         
         player.y = GROUND_Y - player.height;
         ctx.fillStyle = '#000000';
-        ctx.font = "bold 45px Arial";
+        ctx.font = "20px 'Press Start 2P', monospace"; 
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText("*", player.x + player.width/2, player.y + player.height/2 + 10);
+        ctx.fillText("*", player.x + player.width/2, player.y + player.height/2 + 5);
         
-        ctx.fillStyle = '#222';
-        ctx.font = "18px 'PT Serif', serif";
+        ctx.fillStyle = '#444444';
+        ctx.font = "12px 'Press Start 2P', monospace"; 
         ctx.textAlign = "left";
         ctx.fillText(`P-value: 1.0000`, 15, 30);
     }
@@ -347,12 +357,12 @@
         
         if (keys['ArrowDown']) {
             player.isDucking = true;
-            player.height = 18; 
+            player.height = 12; 
             if (player.isGrounded) player.y = GROUND_Y - player.height;
             if (!player.isGrounded) player.vy += 1; 
         } else {
             player.isDucking = false;
-            player.height = 34; 
+            player.height = 24; 
         }
 
         player.vy += player.gravity;
@@ -365,18 +375,18 @@
         }
 
         ctx.fillStyle = '#000000';
-        ctx.font = "bold 45px Arial";
+        ctx.font = "20px 'Press Start 2P', monospace";  
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         
         if (player.isDucking) {
             ctx.save();
-            ctx.translate(player.x + player.width/2, player.y + player.height/2 + 5);
+            ctx.translate(player.x + player.width/2, player.y + player.height/2 + 2);
             ctx.scale(1, 0.5);
             ctx.fillText("*", 0, 0);
             ctx.restore();
         } else {
-            ctx.fillText("*", player.x + player.width/2, player.y + player.height/2 + 10);
+            ctx.fillText("*", player.x + player.width/2, player.y + player.height/2 + 5);
         }
 
         for (let i = 0; i < obstacles.length; i++) {
@@ -411,14 +421,14 @@
             }
         }
 
-        currentPValue = (Math.max(0, 10000 - internalScore) / 10000).toFixed(4);
+        currentPValue = (Math.max(1, 10000 - internalScore) / 10000).toFixed(4);
 
-        ctx.fillStyle = '#222';
-        ctx.font = "18px 'PT Serif', serif";
+        ctx.fillStyle = '#444444';
+        ctx.font = "12px 'Press Start 2P', monospace";
         ctx.textAlign = "left";
         ctx.fillText(`P-value: ${currentPValue}`, 15, 30);
 
-        if (currentPValue === "0.0000") {
+        if (currentPValue === "0.0001") {
             endGame(true);
             return;
         }
@@ -589,4 +599,5 @@
 </script>
 
 </body>
+
 </html>
