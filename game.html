@@ -230,13 +230,20 @@
     function drawGrid() {
         absoluteGridScroll += gameSpeed * 0.2; 
         
+        let offsetX = -(absoluteGridScroll % GRID_MAJOR);
+        
         ctx.strokeStyle = '#f0f0f0';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        for (let x = -(absoluteGridScroll % GRID_MINOR); x < canvas.width; x += GRID_MINOR) {
+        
+        for (let x = offsetX; x < canvas.width; x += GRID_MINOR) {
             ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height);
         }
-        for (let y = 0; y < canvas.height; y += GRID_MINOR) {
+        
+        for (let y = GROUND_Y; y >= 0; y -= GRID_MINOR) {
+            ctx.moveTo(0, y); ctx.lineTo(canvas.width, y);
+        }
+        for (let y = GROUND_Y; y <= canvas.height; y += GRID_MINOR) {
             ctx.moveTo(0, y); ctx.lineTo(canvas.width, y);
         }
         ctx.stroke();
@@ -244,9 +251,11 @@
         ctx.strokeStyle = '#dfdfdf'; 
         ctx.lineWidth = 1.2; 
         ctx.beginPath();
-        for (let x = -(absoluteGridScroll % GRID_MAJOR); x < canvas.width; x += GRID_MAJOR) {
+        
+        for (let x = offsetX; x < canvas.width; x += GRID_MAJOR) {
             ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height);
         }
+        
         for (let y = GROUND_Y; y >= 0; y -= GRID_MAJOR) {
             ctx.moveTo(0, y); ctx.lineTo(canvas.width, y);
         }
