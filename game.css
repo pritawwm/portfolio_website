@@ -186,8 +186,33 @@ th { border-bottom: 2px solid #333333; }
 @media (max-width: 768px) {
     .mobile-inst { display: block; }
     .desktop-inst { display: none; }
-    body { padding: 5px; }
-    .game-wrapper { padding: 10px; }
+
+    body { 
+        justify-content: flex-start; 
+        padding: 50px 0 0 0; 
+    }
+
+    .game-wrapper { 
+        padding: 10px 0; 
+        border-radius: 0;
+    }
+
+    .game-header {
+        padding: 0 15px;
+        box-sizing: border-box;
+        margin-bottom: 30px; 
+    }
+
+    .canvas-container {
+        margin-top: 120px;
+        margin-bottom: 90px; 
+    }
+
+    .leaderboard-section {
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
     .game-header h2 { font-size: 1rem; }
     .instructions { font-size: 0.4rem; padding: 6px; margin-bottom: 10px; }
     .overlay-title { font-size: 0.8rem; }
