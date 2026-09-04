@@ -24,4 +24,8 @@
     <loc>https://pritamsaha.co.in/game</loc>
     <priority>0.80</priority>
   </url>
+  <url>
+    <loc>https://pritamsaha.co.in/music</loc>
+    <priority>0.80</priority>
+  </url>
 </urlset>
