@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>হলুদ ট্যাক্সি</title>
+    <meta name="description" content="Personal portfolio and research interests of Pritam Saha.">
+    <link rel="canonical" href="https://pritamsaha.co.in/music">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.youtube.com">
+
+    <link rel="stylesheet" href="music.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="manifest" href="images/site.webmanifest">
+
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-623120DN5V"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-623120DN5V');
+</script>
+
+</head>
+<body>
+    <div class="background-container"></div>
+
+    <div class="overlay">
+        <header class="top-bar">
+            <div class="time" id="clock">--:-- --</div>
+            <div class="social-links">
+                <a href="https://open.spotify.com/playlist/3o3F7JJaBDHmnjzTeOoTzW" target="_blank" rel="noopener noreferrer" class="platform-link">
+                    <i class="fab fa-spotify"></i> <span class="platform-text">Spotify</span> <i class="fa-solid fa-arrow-up small-icon" style="transform: rotate(45deg);"></i>
+                </a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <h1 class="brand-title">
+                <img src="images/music_logo.svg" alt="হলুদ ট্যাক্সি" class="brand-logo">
+            </h1>
+        </main>
+
+        <footer class="player-wrapper">
+            <div class="glass-player">
+                <div class="vinyl-record" id="vinyl">
+                    <div class="vinyl-center"></div>
+                </div>
+                
+                <div class="track-info">
+                    <div class="track-name" id="track-name">Kon Gopone</div>
+                    <div class="artist-name" id="artist-name">Surangana Bandyopadhyay</div>
+                    
+                    <div class="progress-container">
+                        <span class="time-text" id="time-text">0:00 / 0:00</span>
+                        <div class="progress-bar" id="progress-bar">
+                            <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="control-btn" id="prev-btn" aria-label="Previous Track"><i class="fa-solid fa-backward-step"></i></button>
+                    <button class="play-btn" id="play-btn" aria-label="Play or Pause"><i class="fa-solid fa-play"></i></button>
+                    <button class="control-btn" id="next-btn" aria-label="Next Track"><i class="fa-solid fa-forward-step"></i></button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div style="position: absolute; top: 0; left: 0; opacity: 0; pointer-events: none; z-index: -10;">
+        <div id="hidden-player"></div>
+    </div>
+
+<script>
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12 || 12; 
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            
+            document.getElementById('clock').innerHTML = hours + '<span class="blink">:</span>' + minutes + ' ' + ampm;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        const customTrackInfo = {
+            '0mhhR95bAoU': { title: "Kon Gopone", artist: "Surangana Bandyopadhyay" },
+            '9Ya_0jnZLyw': { title: "Ami Ajkal Bhalo Achhi", artist: "Anupam Roy" },
+            'Rz1yqJzrLmY': { title: "Era Sukher Lagi", artist: "Iman Chakraborty" },
+            'MIGZqup0_yY': { title: "Bhalobashar Morshum", artist: "Arijit Singh" },
+            'q_jd8uNWBzw': { title: "Chol Rastay Saji Tram Line", artist: "Shreya Ghoshal" },
+            'sVyIQY1dcgU': { title: "Tara Khoshe Pore", artist: "Anupam Roy & Monali Thakur" },
+            '4TRAoSW5TZk': { title: "Ki Name Deke Bolbo Tomake", artist: "Miftah Zaman" },
+            'FXLQcnAG9UA': { title: "Agomonir Gaan", artist: "Anupam Roy" },
+            'e5kFWasyufE': { title: "Bibagi Phone", artist: "Anirban Bhattacharya" },
+            '4vrS8JUUkQA': { title: "Baundule Ghuri", artist: "Anupam Roy, Arijit Singh & Shreya Ghoshal" },
+            'IZXg_rDyZ18': { title: "Amar Haat Bandhibi", artist: "Rishi Panda" },
+            'QmcdG-_3W0U': { title: "Je Kawta Din Reprise", artist: "Anupam Roy" },
+            'JArtcoHisMM': { title: "Amar Bhitor O Bahire", artist: "Somlata & The Aces" },
+            'P0sMRDB-o3w': { title: "Jawkhon Porbena Mor", artist: "Rupankar Bagchi" },
+            'SZzyKVdR2cM': { title: "Bolo Na Radhika", artist: "Monali Thakur" },
+            'Ad4t7f-jmss': { title: "Amar Mawte", artist: "Lopamudra Mitra" },
+            'nlis272hNoo': { title: "Ei Shrabon", artist: "Rupam Islam" },
+            '0-xRK7mansI': { title: "Benche Thakar Gaan", artist: "Anupam Roy" },
+            'H4jwQDv19NU': { title: "Boba Tunnel", artist: "Anupam Roy" },
+            'Gy0kTWVZsDg': { title: "Amake Amar Moto Thakte Dao", artist: "Anupam Roy " },
+            '3Y3DqF-igBI': { title: "Jodi Kagoje Lekho Naam", artist: "Manna Dey" },
+            'W7e4mxTqg6s': { title: "Tomar Moner Bhetor", artist: "Noble" },
+        };
+
+        let player;
+        let isPlaying = false;
+        let progressInterval;
+        let isPlayerReady = false;
+
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player', {
+                height: '200', 
+                width: '200',  
+                playerVars: {
+                    'listType': 'playlist',
+                    'list': 'PLQEyGVyr_LWc', 
+                    'playsinline': 1,
+                    'autoplay': 0,
+                    'origin': window.location.origin
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+        }
+
+        function onPlayerError(event) {
+            const trackName = document.getElementById('track-name');
+            if (event.data === 150 || event.data === 101) {
+                trackName.textContent = "Song blocked. Skipping...";
+                setTimeout(() => player.nextVideo(), 1000);
+            }
+        }
+
+        const playBtn = document.getElementById('play-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const vinyl = document.getElementById('vinyl');
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !player) return; 
+            if (isPlaying) player.pauseVideo();
+            else player.playVideo();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !player) return;
+            const playlist = player.getPlaylist();
+            if (!playlist) return;
+            
+            const currentIndex = player.getPlaylistIndex();
+            if (currentIndex === 0) {
+                player.playVideoAt(playlist.length - 1);
+            } else {
+                player.previousVideo();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !player) return;
+            const playlist = player.getPlaylist();
+            if (!playlist) return;
+
+            const currentIndex = player.getPlaylistIndex();
+            if (currentIndex === playlist.length - 1) {
+                player.playVideoAt(0);
+            } else {
+                player.nextVideo();
+            }
+        });
+
+        const progressBar = document.getElementById('progress-bar');
+        const progressFill = document.getElementById('progress-fill');
+        const timeText = document.getElementById('time-text');
+        let isDragging = false;
+
+        function handleSeekInteraction(e) {
+            if (!isPlayerReady || !player) return;
+            
+            const rect = progressBar.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            let clickX = clientX - rect.left;
+            
+            clickX = Math.max(0, Math.min(clickX, rect.width));
+            const widthPercentage = clickX / rect.width;
+            
+            progressFill.style.width = (widthPercentage * 100) + '%';
+            
+            const duration = player.getDuration();
+            if (duration > 0) {
+                const seekTime = widthPercentage * duration;
+                timeText.textContent = formatTime(seekTime) + ' / ' + formatTime(duration);
+            }
+        }
+
+        const startDragging = (e) => {
+            isDragging = true;
+            progressBar.classList.add('is-dragging');
+            handleSeekInteraction(e);
+        };
+
+        const whileDragging = (e) => {
+            if (isDragging) handleSeekInteraction(e);
+        };
+
+        const stopDragging = (e) => {
+            if (isDragging) {
+                isDragging = false;
+                progressBar.classList.remove('is-dragging');
+                
+                const currentWidth = parseFloat(progressFill.style.width) / 100;
+                if (player && typeof player.seekTo === 'function' && player.getDuration() > 0) {
+                    player.seekTo(currentWidth * player.getDuration(), true);
+                }
+            }
+        };
+
+        progressBar.addEventListener('mousedown', startDragging);
+        document.addEventListener('mousemove', whileDragging);
+        document.addEventListener('mouseup', stopDragging);
+
+        progressBar.addEventListener('touchstart', startDragging);
+        document.addEventListener('touchmove', whileDragging);
+        document.addEventListener('touchend', stopDragging);
+
+        function onPlayerStateChange(event) {
+            const playIcon = document.querySelector('#play-btn i');
+            const trackName = document.getElementById('track-name');
+            const artistName = document.getElementById('artist-name');
+
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+                vinyl.classList.add('spin'); 
+                
+                if (typeof player.getVideoData === 'function') {
+                    const videoData = player.getVideoData();
+                    if (videoData) {
+                        const vidId = videoData.video_id;
+                        
+                        if (customTrackInfo[vidId]) {
+                            trackName.textContent = customTrackInfo[vidId].title;
+                            artistName.textContent = customTrackInfo[vidId].artist;
+                        } else {
+                            if (videoData.title) trackName.textContent = videoData.title;
+                            if (videoData.author) artistName.textContent = videoData.author;
+                        }
+                    }
+                }
+                progressInterval = setInterval(updateProgressBar, 1000);
+                
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+                vinyl.classList.remove('spin'); 
+                clearInterval(progressInterval);
+            }
+        }
+
+        function updateProgressBar() {
+            if (!player || !isPlaying || isDragging) return; 
+            
+            const currentTime = player.getCurrentTime();
+            const duration = player.getDuration();
+            
+            if (duration > 0) {
+                document.getElementById('progress-fill').style.width = ((currentTime / duration) * 100) + '%';
+                document.getElementById('time-text').textContent = formatTime(currentTime) + ' / ' + formatTime(duration);
+            }
+        }
+
+        function formatTime(seconds) {
+            if (!seconds) return "0:00";
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return min + ':' + (sec < 10 ? '0' + sec : sec);
+        }
+</script>
+
+</body>
+</html>
