@@ -286,6 +286,32 @@
 .bb { background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg'); }
 .bk { background-image: url('https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg'); }
 
+.chess-invite {
+    margin-top: 20px; 
+    font-size: 1rem;
+    color: #555;
+    font-weight: 500;
+    text-align: left;
+    margin-left: 30px; 
+}
+
+.chess-link {
+    color: #7fa650;
+    text-decoration: none;
+    font-weight: 600;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    display: inline-flex; 
+    align-items: center;
+    gap: 4px;
+}
+
+.chess-link:hover {
+    color: #5c7a38;
+    border-bottom: 2px solid #7fa650;
+}
+
 @media (max-width: 900px) {
     .interest-row, .interest-row.reverse {
         flex-direction: column;
