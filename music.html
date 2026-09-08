@@ -1,397 +1,588 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#1a1a1a">
-    <title>Yellow Taxi</title>
+    <title>Music - Yellow Taxi</title>
     <meta name="description" content="Personal portfolio and research interests of Pritam Saha.">
     <link rel="canonical" href="https://pritamsaha.co.in/music">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://www.youtube.com">
-
     <link rel="stylesheet" href="music.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="manifest" href="images/site.webmanifest">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-
-        <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-623120DN5V"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-623120DN5V');
-</script>
-
+    <link rel="manifest" href="images/site.webmanifest">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-623120DN5V"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-623120DN5V');
+    </script>
 </head>
+
 <body>
-    <div class="background-container"></div>
+<div class="background-container">
+    <picture>
+        <source media="(max-width: 1000px)" srcset="images/music_small_bg.avif" type="image/avif">
+        <source media="(max-width: 1000px)" srcset="images/music_small_bg.webp" type="image/webp">
+        <source media="(max-width: 1000px)" srcset="images/music_small_bg.png" type="image/png">
+
+        <source media="(min-width: 1001px)" srcset="images/music_big_bg.avif" type="image/avif">
+        <source media="(min-width: 1001px)" srcset="images/music_big_bg.webp" type="image/webp">
+
+        <img src="images/music_big_bg.png" alt="Yellow Taxi Background" class="bg-image">
+    </picture>
+</div>
 
     <div class="overlay">
+        
         <header class="top-bar">
-            <div class="time" id="clock">--:-- --</div>
-            <div class="social-links">
-                <a href="https://open.spotify.com/playlist/3o3F7JJaBDHmnjzTeOoTzW" target="_blank" rel="noopener noreferrer" class="platform-link">
-                    <i class="fab fa-spotify"></i> <span class="platform-text">Spotify</span> <i class="fa-solid fa-arrow-up small-icon" style="transform: rotate(45deg);"></i>
-                </a>
+            <div class="top-controls">
+                <div class="top-controls-inner glass-panel">
+
+                    <button class="top-btn" id="shuffle-btn" aria-label="Shuffle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shuffle"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></svg>
+                    </button>
+
+                    <button class="top-btn" id="playlist-btn" aria-label="Playlist">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-music"><path d="M16 5H3"/><path d="M11 12H3"/><path d="M11 19H3"/><path d="M21 16V5"/><circle cx="18" cy="16" r="3"/></svg>
+                    </button>
+
+                    <button class="top-btn" id="repeat-btn" aria-label="Repeat">
+
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m17 2 4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="m7 22-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </header>
 
-        <main class="main-content">
-            <h1 class="brand-title">
-                <img src="images/music_logo.svg" alt="হলুদ ট্যাক্সি" class="brand-logo">
-            </h1>
-        </main>
+        <div class="main-screen">
+            <main class="main-content">
+                <h1 class="brand-title">
+                    <img src="images/music_logo.svg" alt="Yellow Taxi" class="brand-logo">
+                </h1>
+            </main>
 
-        <footer class="player-wrapper">
-            <div class="glass-player">
-                <div class="vinyl-record" id="vinyl">
-                    <div class="vinyl-center"></div>
-                </div>
+            <div class="playlist-overlay glass-panel" id="playlist-overlay">
+                <ul class="playlist-list" id="playlist-list">
+
+                </ul>
                 
-                <div class="track-info">
-                    <div class="track-name" id="track-name">Kon Gopone</div>
-                    <div class="artist-name" id="artist-name">Surangana Bandyopadhyay</div>
+                <div class="playlist-footer">
+                    <hr class="playlist-divider">
+                    <a href="https://open.spotify.com/playlist/3o3F7JJaBDHmnjzTeOoTzW" target="_blank" rel="noopener noreferrer" class="inspiration-link">
+                        Playlist created by Shreyasee
+                        <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+                            <g transform="translate(-140, -7479)">
+                                <g transform="translate(56, 160)">
+                                    <path d="M99.915,7327.865 C96.692,7325.951 91.375,7325.775 88.297,7326.709 C87.803,7326.858 87.281,7326.58 87.131,7326.085 C86.981,7325.591 87.26,7325.069 87.754,7324.919 C91.287,7323.846 97.159,7324.053 100.87,7326.256 C101.314,7326.52 101.46,7327.094 101.196,7327.538 C100.934,7327.982 100.358,7328.129 99.915,7327.865 L99.915,7327.865 Z M99.81,7330.7 C99.584,7331.067 99.104,7331.182 98.737,7330.957 C96.05,7329.305 91.952,7328.827 88.773,7329.792 C88.36,7329.916 87.925,7329.684 87.8,7329.272 C87.676,7328.86 87.908,7328.425 88.32,7328.3 C91.951,7327.198 96.466,7327.732 99.553,7329.629 C99.92,7329.854 100.035,7330.334 99.81,7330.7 L99.81,7330.7 Z M98.586,7333.423 C98.406,7333.717 98.023,7333.81 97.729,7333.63 C95.381,7332.195 92.425,7331.871 88.944,7332.666 C88.609,7332.743 88.274,7332.533 88.198,7332.197 C88.121,7331.862 88.33,7331.528 88.667,7331.451 C92.476,7330.58 95.743,7330.955 98.379,7332.566 C98.673,7332.746 98.766,7333.129 98.586,7333.423 L98.586,7333.423 Z M94,7319 C88.477,7319 84,7323.477 84,7329 C84,7334.523 88.477,7339 94,7339 C99.523,7339 104,7334.523 104,7329 C104,7323.478 99.523,7319.001 94,7319.001 L94,7319 Z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <footer class="player-wrapper">
+                <div class="glass-player glass-panel">
                     
-                    <div class="progress-container">
-                        <span class="time-text" id="time-text">0:00 / 0:00</span>
-                        <div class="progress-bar" id="progress-bar">
-                            <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+                    <div class="vinyl-record" id="vinyl">
+                        <div class="vinyl-center"></div>
+                    </div>
+                    
+                    <div class="track-info-container">
+                        <div class="info-top">
+                            <div class="track-text">
+                                <div class="track-name" id="track-name">Kon Gopone</div>
+                                <div class="artist-name" id="artist-name">Surangana Bandyopadhyay</div>
+                            </div>
+                            <div class="controls">
+
+                                <button class="control-btn" id="prev-btn" aria-label="Previous Track">
+                                    <svg viewBox="0 0 48 48" width="24" height="24" fill="currentColor">
+                                        <path d="M24.8,24,35.4,13.4a1.9,1.9,0,0,0-.2-3,2.1,2.1,0,0,0-2.7.2l-11.9,12a1.9,1.9,0,0,0,0,2.8l11.9,12a2.1,2.1,0,0,0,2.7.2,1.9,1.9,0,0,0,.2-3Z"/>
+                                        <path d="M14,10a2,2,0,0,0-2,2V36a2,2,0,0,0,4,0V12A2,2,0,0,0,14,10Z"/>
+                                    </svg>
+                                </button>
+
+                                <button class="play-btn" id="play-btn" aria-label="Play or Pause">
+                                    <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
+                                        <path d="M16.7519 11.1679L10.5547 7.03647C9.89015 6.59343 9 7.06982 9 7.86852V16.1315C9 16.9302 9.89015 17.4066 10.5547 16.9635L16.7519 12.8321C17.3457 12.4362 17.3457 11.5638 16.7519 11.1679Z"/>
+                                    </svg>
+                                </button>
+
+                                <button class="control-btn" id="next-btn" aria-label="Next Track">
+                                    <svg viewBox="0 0 48 48" width="24" height="24" fill="currentColor">
+                                        <path d="M34,10a2,2,0,0,0-2,2V36a2,2,0,0,0,4,0V12A2,2,0,0,0,34,10Z"/>
+                                        <path d="M15.5,10.6a2.1,2.1,0,0,0-2.7-.2,1.9,1.9,0,0,0-.2,3L23.2,24,12.6,34.6a1.9,1.9,0,0,0,.2,3,2.1,2.1,0,0,0,2.7-.2l11.9-12a1.9,1.9,0,0,0,0-2.8Z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="progress-container">
+                            <span class="time-text" id="current-time">0:00</span>
+                            <div class="progress-bar" id="progress-bar">
+                                <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+                            </div>
+                            <span class="time-text" id="total-time">0:00</span>
                         </div>
                     </div>
                 </div>
+            </footer>
+        </div>
 
-                <div class="controls">
-                    <button class="control-btn" id="prev-btn" aria-label="Previous Track"><i class="fa-solid fa-backward-step"></i></button>
-                    <button class="play-btn" id="play-btn" aria-label="Play or Pause"><i class="fa-solid fa-play"></i></button>
-                    <button class="control-btn" id="next-btn" aria-label="Next Track"><i class="fa-solid fa-forward-step"></i></button>
-                </div>
-            </div>
-        </footer>
+
+        <section class="about-section">
+            <h2 class="about-title">About Yellow Taxi</h2>
+            <p class="about-text">The Hindustan Ambassador isn't just an automobile, it is an absolute icon of Indian automotive history. Originally based on the British Morris Oxford Series III and manufactured in Uttarpara, West Bengal, the "King of Indian Roads" served as the default chariot for India's prime ministers, politicians, and military officers for decades.</p>
+            
+            <p class="about-text">But its true soul belongs to the streets of Calcutta. Painted in a vivid, unmissable yellow to catch the eye even in the dead of night, the yellow taxi became the emotional heartbeat of the city. For over a century, these taxis have stood at the crossroads of tradition and modernity.</p>
+            
+            <p class="about-text">More than just a mode of transport, the yellow taxi became a silent, non-living character deeply woven into Bengali culture. Through literature, paintings, and the cinematic masterpieces of legendary filmmakers like Satyajit Ray and Mrinal Sen, the taxi has spent a century narrating the untold stories of a culturally rich metropolis.</p>
+
+            <h2 class="about-title" style="margin-top: 40px;">About the Playlist & Art</h2>
+            <p class="about-text">This page is a tribute to that same sense of journey and nostalgia. It features a curated Bengali music playlist that leans heavily on classic melodies, Anupam Roy hits, Arijit Singh staples, and golden-era masterpieces. Just like a long cab ride through the city at night, the music is meant to evoke deep emotion and memory.</p>
+            
+            <p class="about-text">The background artwork was generated using DALL·E, deeply inspired by the beautiful visual aesthetics of <a href="https://www.behance.net/gallery/95739781/The-Taxi-Project" target="_blank" rel="noopener noreferrer" class="behance-link">The Taxi Project</a> by Subhabrata Bose.</p>
+        </section>
     </div>
 
-    <div style="position: absolute; top: 0; left: 0; opacity: 0; pointer-events: none; z-index: -10;">
+
+    <div style="position: absolute; left: -9999px; width: 0; height: 0; overflow: hidden; pointer-events: none;">
         <div id="hidden-player"></div>
     </div>
 
 <script>
-        function updateTime() {
-            const now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            const ampm = hours >= 12 ? 'pm' : 'am';
-            hours = hours % 12 || 12; 
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            
-            document.getElementById('clock').innerHTML = hours + '<span class="blink">:</span>' + minutes + ' ' + ampm;
-        }
-        setInterval(updateTime, 1000);
-        updateTime();
 
-        const customTrackInfo = {
-            '0mhhR95bAoU': { title: "Kon Gopone", artist: "Surangana Bandyopadhyay" },
-            '9Ya_0jnZLyw': { title: "Ami Ajkal Bhalo Achhi", artist: "Anupam Roy" },
-            'Rz1yqJzrLmY': { title: "Era Sukher Lagi", artist: "Iman Chakraborty" },
-            'MIGZqup0_yY': { title: "Bhalobashar Morshum", artist: "Arijit Singh" },
-            'q_jd8uNWBzw': { title: "Chol Rastay Saji Tram Line", artist: "Shreya Ghoshal" },
-            'sVyIQY1dcgU': { title: "Tara Khoshe Pore", artist: "Anupam Roy & Monali Thakur" },
-            '4TRAoSW5TZk': { title: "Ki Name Deke Bolbo Tomake", artist: "Miftah Zaman" },
-            'FXLQcnAG9UA': { title: "Agomonir Gaan", artist: "Anupam Roy" },
-            'e5kFWasyufE': { title: "Bibagi Phone", artist: "Anirban Bhattacharya" },
-            '4vrS8JUUkQA': { title: "Baundule Ghuri", artist: "Anupam Roy, Arijit Singh & Shreya Ghoshal" },
-            'IZXg_rDyZ18': { title: "Amar Haat Bandhibi", artist: "Rishi Panda" },
-            'QmcdG-_3W0U': { title: "Je Kawta Din Reprise", artist: "Anupam Roy" },
-            'JArtcoHisMM': { title: "Amar Bhitor O Bahire", artist: "Somlata & The Aces" },
-            'P0sMRDB-o3w': { title: "Jawkhon Porbena Mor", artist: "Rupankar Bagchi" },
-            'SZzyKVdR2cM': { title: "Bolo Na Radhika", artist: "Monali Thakur" },
-            'Ad4t7f-jmss': { title: "Amar Mawte", artist: "Lopamudra Mitra" },
-            'nlis272hNoo': { title: "Ei Shrabon", artist: "Rupam Islam" },
-            '0-xRK7mansI': { title: "Benche Thakar Gaan", artist: "Anupam Roy" },
-            'H4jwQDv19NU': { title: "Boba Tunnel", artist: "Anupam Roy" },
-            'Gy0kTWVZsDg': { title: "Amake Amar Moto Thakte Dao", artist: "Anupam Roy " },
-            '3Y3DqF-igBI': { title: "Jodi Kagoje Lekho Naam", artist: "Manna Dey" },
-            'W7e4mxTqg6s': { title: "Tomar Moner Bhetor", artist: "Noble" },
-            '5Ea11dxEBzU': { title: "Jawl Phoring 2.0", artist: "Anupom Roy" },
-            '4S_ZjXwuP8U': { title: "Ekhon Onek Raat", artist: "Anupom Roy" },
-            'gY4VCRtSWsg': { title: "Ekla Chalo Re", artist: "Anupom Roy" },
-            'dSfc4xLo-Zc': { title: "Ghawrbaari", artist: "Anupom Roy" },
-            'xXDcKbXBkXQ': { title: "Aamar Motey", artist: "Anupom Roy" },
-            'YIPKkBWB0Ro': { title: "Ekbar Bol", artist: "Anupom Roy" },
-            'qj_7J8RNozI': { title: "Bondhu Chol", artist: "Anupom Roy" },
-            'YEqVe0A0JkA': { title: "Neel Rong Chhilo Bhishan Priyo", artist: "Rupam Islam" },
-            'Jz2WVoc1lOg': { title: "Aro Ekbar Cholo Phire Jai", artist: "Rupam Islam" },
-            'OD8-Ju9qHlU': { title: "Hasnuhana", artist: "Rupam Islam" },
-            'BlRrMZ4RIx4': { title: "Ekla Ghor", artist: "Rupam Islam" },
-            'pXzJMgSPnc0': { title: "Bishakto manush", artist: "Rupam Islam" },
-            'yOV-pS6-KRA': { title: "Preme Pora Baron", artist: "Lagnajita Chakraborty" },
-            'z1pJdlt7gto': { title: "Shetai Satyi", artist: "Rupankar Bagchi" },
-            'wMpRQDek2ag': { title: "Jawl Phoring", artist: "Silajit" },
-            'CsizGz-8YQo': { title: "Bojhena Se Bojhena", artist: "Arijit Singh" },
-            '9EeCjTpSPUA': { title: "Kichchu Chaini Aami", artist: "Anirban Bhattacharya" },
-            'Kak2x36B3Mw': { title: "Behaya", artist: "Lagnajita Chakraborty" },
-            'mJRHIVIqLWo': { title: "Gobhire Jao", artist: "Rupankar Bagchi" },
-            'VaR-2KRhXac': { title: "E Tumi Kemon Tumi", artist: "Rupankar Bagchi" },
-            'CdgJp25NzOk': { title: "Bela Bose", artist: "Anjan Dutta" },
-            'Rh_rom_0_0w': { title: "Tumi Ashbe Bole", artist: "Nachiketa" },
-            'eARL8SgsuTk': { title: "Haal Cherona Bondhu", artist: "Kabir Suman" },
-            'F1zHla0ajqE': { title: "Tomake Chai", artist: "Arijit Singh" },
-            'b1Gv0xCcV94': { title: "Sara Dao", artist: "Kabir Suman" },
-            'vCTHQUoCeLA': { title: "Je Raate Mor Duargulee", artist: "Rupankar Bagchi" },
-            'YFmpvovELEA': { title: "Hoyto Tomari Jonno", artist: "Manna Dey" },
-            'fCGFAUcArXM': { title: "Jagorane Jay Bibhabori", artist: "Somlata Acharyya" },
-            'inv-9xQRy5M': { title: "Takey Olpo Kache Dakchi", artist: "Mahtim Shakib" },
-            '5mHix2c1erg': { title: "Phiriye dewar gaan", artist: "Rupam Islam" },
-            'J03Ts-HdzGI': { title: "O Je Mane Na Mana", artist: "Somlata Acharyya" },
-            'awtZWN0tSAU': { title: "Lokkhiti", artist: "Anupam Roy" },
-            'A-e_Ip38hV0': { title: "Abar phire ele", artist: "Arijit Singh" },
-            'uijFo32c0zM': { title: "Dekhechi Rupsagare", artist: "Rishi Panda" },
-            'BzerneUXWcU': { title: "Jage re", artist: "Nachiketa Chakraborty" },
-            'Q6O2hwfNLig': { title: "Amar Onge Onge", artist: "Lagnajita Chakraborty" },
-            'YJ1xSmD3LHk': { title: "Aami Shei Manushta Aar Nei", artist: "Paloma Majumder" },
-            'z0wgLjOcI4g': { title: "Hridoyer Rang", artist: "Lagnajita Chakraborty" },
-            '44WdP2saWoU': { title: "Tomar Chokher Sitolpati", artist: "Lagnajita Chakraborty" },
-            '3j3aH5nbYmM': { title: "Ek Purono Masjide", artist: "Nachiketa" },
-            '3VNC2apk5bo': { title: "Ami Cheye Cheye Dekhi Saradin", artist: "Shyamal Mitra" },
-            'ctFwXgQnt_k': { title: "Mon Kyamoner Jonmodin", artist: "Mekhla Dasgupta" },
-            '6aoNvYh7Zy4': { title: "Amay Prashna Kare Neel Dhrubatara", artist: "Srikanto Acharya" },
-            '0nKgqmexhjk': { title: "Olir Katha Shune", artist: "Hemanta Mukherjee" },
-            '2OfizjVxERg': { title: "Bariye Dao Tomar Haat", artist: "Anupam Roy" },
-        };
+    const customTrackInfo = {
+        '0mhhR95bAoU': { title: "Kon Gopone", artist: "Surangana Bandyopadhyay" },
+        '9Ya_0jnZLyw': { title: "Ami Ajkal Bhalo Achhi", artist: "Anupam Roy" },
+        'Rz1yqJzrLmY': { title: "Era Sukher Lagi", artist: "Iman Chakraborty" },
+        'MIGZqup0_yY': { title: "Bhalobashar Morshum", artist: "Arijit Singh" },
+        'q_jd8uNWBzw': { title: "Chol Rastay Saji Tram Line", artist: "Shreya Ghoshal" },
+        'sVyIQY1dcgU': { title: "Tara Khoshe Pore", artist: "Anupam Roy & Monali Thakur" },
+        '4TRAoSW5TZk': { title: "Ki Name Deke Bolbo Tomake", artist: "Miftah Zaman" },
+        'FXLQcnAG9UA': { title: "Agomonir Gaan", artist: "Anupam Roy" },
+        'e5kFWasyufE': { title: "Bibagi Phone", artist: "Anirban Bhattacharya" },
+        '4vrS8JUUkQA': { title: "Baundule Ghuri", artist: "Anupam Roy, Arijit Singh & Shreya Ghoshal" },
+        'IZXg_rDyZ18': { title: "Amar Haat Bandhibi", artist: "Rishi Panda" },
+        'QmcdG-_3W0U': { title: "Je Kawta Din Reprise", artist: "Anupam Roy" },
+        'JArtcoHisMM': { title: "Amar Bhitor O Bahire", artist: "Somlata & The Aces" },
+        'P0sMRDB-o3w': { title: "Jawkhon Porbena Mor", artist: "Rupankar Bagchi" },
+        'SZzyKVdR2cM': { title: "Bolo Na Radhika", artist: "Monali Thakur" },
+        'Ad4t7f-jmss': { title: "Amar Mawte", artist: "Lopamudra Mitra" },
+        'nlis272hNoo': { title: "Ei Shrabon", artist: "Rupam Islam" },
+        '0-xRK7mansI': { title: "Benche Thakar Gaan", artist: "Anupam Roy" },
+        'H4jwQDv19NU': { title: "Boba Tunnel", artist: "Anupam Roy" },
+        'Gy0kTWVZsDg': { title: "Amake Amar Moto Thakte Dao", artist: "Anupam Roy" },
+        '3Y3DqF-igBI': { title: "Jodi Kagoje Lekho Naam", artist: "Manna Dey" },
+        'W7e4mxTqg6s': { title: "Tomar Moner Bhetor", artist: "Noble" },
+        '5Ea11dxEBzU': { title: "Jawl Phoring 2.0", artist: "Anupam Roy" },
+        '4S_ZjXwuP8U': { title: "Ekhon Onek Raat", artist: "Anupam Roy" },
+        'gY4VCRtSWsg': { title: "Ekla Chalo Re", artist: "Anupam Roy" },
+        'dSfc4xLo-Zc': { title: "Ghawrbaari", artist: "Anupam Roy" },
+        'xXDcKbXBkXQ': { title: "Aamar Motey", artist: "Anupam Roy" },
+        'YIPKkBWB0Ro': { title: "Ekbar Bol", artist: "Anupam Roy" },
+        'qj_7J8RNozI': { title: "Bondhu Chol", artist: "Anupam Roy" },
+        'YEqVe0A0JkA': { title: "Neel Rong Chhilo Bhishan Priyo", artist: "Rupam Islam" },
+        'Jz2WVoc1lOg': { title: "Aro Ekbar Cholo Phire Jai", artist: "Rupam Islam" },
+        'OD8-Ju9qHlU': { title: "Hasnuhana", artist: "Rupam Islam" },
+        'BlRrMZ4RIx4': { title: "Ekla Ghor", artist: "Rupam Islam" },
+        'pXzJMgSPnc0': { title: "Bishakto manush", artist: "Rupam Islam" },
+        'yOV-pS6-KRA': { title: "Preme Pora Baron", artist: "Lagnajita Chakraborty" },
+        'z1pJdlt7gto': { title: "Shetai Satyi", artist: "Rupankar Bagchi" },
+        'wMpRQDek2ag': { title: "Jawl Phoring", artist: "Silajit" },
+        'CsizGz-8YQo': { title: "Bojhena Se Bojhena", artist: "Arijit Singh" },
+        '9EeCjTpSPUA': { title: "Kichchu Chaini Aami", artist: "Anirban Bhattacharya" },
+        'Kak2x36B3Mw': { title: "Behaya", artist: "Lagnajita Chakraborty" },
+        'mJRHIVIqLWo': { title: "Gobhire Jao", artist: "Rupankar Bagchi" },
+        'VaR-2KRhXac': { title: "E Tumi Kemon Tumi", artist: "Rupankar Bagchi" },
+        'CdgJp25NzOk': { title: "Bela Bose", artist: "Anjan Dutta" },
+        'Rh_rom_0_0w': { title: "Tumi Ashbe Bole", artist: "Nachiketa" },
+        'eARL8SgsuTk': { title: "Haal Cherona Bondhu", artist: "Kabir Suman" },
+        'F1zHla0ajqE': { title: "Tomake Chai", artist: "Arijit Singh" },
+        'b1Gv0xCcV94': { title: "Sara Dao", artist: "Kabir Suman" },
+        'vCTHQUoCeLA': { title: "Je Raate Mor Duargulee", artist: "Rupankar Bagchi" },
+        'YFmpvovELEA': { title: "Hoyto Tomari Jonno", artist: "Manna Dey" },
+        'fCGFAUcArXM': { title: "Jagorane Jay Bibhabori", artist: "Somlata Acharyya" },
+        'inv-9xQRy5M': { title: "Takey Olpo Kache Dakchi", artist: "Mahtim Shakib" },
+        '5mHix2c1erg': { title: "Phiriye dewar gaan", artist: "Rupam Islam" },
+        'J03Ts-HdzGI': { title: "O Je Mane Na Mana", artist: "Somlata Acharyya" },
+        'awtZWN0tSAU': { title: "Lokkhiti", artist: "Anupam Roy" },
+        'A-e_Ip38hV0': { title: "Abar phire ele", artist: "Arijit Singh" },
+        'uijFo32c0zM': { title: "Dekhechi Rupsagare", artist: "Rishi Panda" },
+        'BzerneUXWcU': { title: "Jage re", artist: "Nachiketa Chakraborty" },
+        'Q6O2hwfNLig': { title: "Amar Onge Onge", artist: "Lagnajita Chakraborty" },
+        'YJ1xSmD3LHk': { title: "Aami Shei Manushta Aar Nei", artist: "Paloma Majumder" },
+        'z0wgLjOcI4g': { title: "Hridoyer Rang", artist: "Lagnajita Chakraborty" },
+        '44WdP2saWoU': { title: "Tomar Chokher Sitolpati", artist: "Lagnajita Chakraborty" },
+        '3j3aH5nbYmM': { title: "Ek Purono Masjide", artist: "Nachiketa" },
+        '3VNC2apk5bo': { title: "Ami Cheye Cheye Dekhi Saradin", artist: "Shyamal Mitra" }, 
+        'ctFwXgQnt_k': { title: "Mon Kyamoner Jonmodin", artist: "Mekhla Dasgupta" },
+        '6aoNvYh7Zy4': { title: "Amay Prashna Kare Neel Dhrubatara", artist: "Srikanto Acharya" },
+        '0nKgqmexhjk': { title: "Olir Katha Shune", artist: "Hemanta Mukherjee" },
+        '2OfizjVxERg': { title: "Bariye Dao Tomar Haat", artist: "Anupam Roy" },
+    };
 
-        let player;
-        let isPlaying = false;
-        let progressInterval;
-        let isPlayerReady = false;
+    const originalTrackIds = Object.keys(customTrackInfo);
+    let currentTrackIds = [...originalTrackIds];
+    let currentIndex = 0;
+    
+    let player;
+    let isPlaying = false;
+    let isShuffle = false;
+    let isRepeatOne = false;
+    let progressInterval;
+    let isPlayerReady = false;
 
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('hidden-player', {
-                height: '200', 
-                width: '200',  
-                playerVars: {
-                    'listType': 'playlist',
-                    'list': 'PLQEyGVyr_LWc', 
-                    'playsinline': 1,
-                    'autoplay': 0,
-                    'origin': window.location.origin
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange,
-                    'onError': onPlayerError
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            isPlayerReady = true;
-        }
-
-        function onPlayerError(event) {
-            const trackName = document.getElementById('track-name');
-            if (event.data === 150 || event.data === 101) {
-                trackName.textContent = "Song blocked. Skipping...";
-                setTimeout(() => player.nextVideo(), 1000);
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('hidden-player', {
+            height: '200', 
+            width: '200',  
+            videoId: currentTrackIds[currentIndex],
+            playerVars: {
+                'playsinline': 1,
+                'autoplay': 0,
+                'origin': window.location.origin
+            },
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange,
+                'onError': onPlayerError
             }
-        }
+        });
+    }
 
+    function onPlayerReady(event) {
+        isPlayerReady = true;
+        renderPlaylist();
+        updateTrackInfoUI();
+    }
+
+    function onPlayerError(event) {
+        if (event.data === 150 || event.data === 101 || event.data === 100) {
+            document.getElementById('track-name').textContent = "Song blocked. Skipping...";
+            setTimeout(playNextTrack, 1500);
+        }
+    }
+
+    function loadTrack(index) {
+        if (!isPlayerReady || !player) return;
+        currentIndex = index;
+        const vidId = currentTrackIds[currentIndex];
+        
+        player.loadVideoById(vidId);
+        
+        updateTrackInfoUI();
+        updatePlaylistHighlight();
+    }
+
+    function playNextTrack() {
+        if (currentIndex < currentTrackIds.length - 1) {
+            currentIndex++;
+        } else {
+            currentIndex = 0;
+        }
+        loadTrack(currentIndex);
+    }
+
+    function playPrevTrack() {
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex = currentTrackIds.length - 1;
+        }
+        loadTrack(currentIndex);
+    }
+
+    function updateTrackInfoUI() {
+        const vidId = currentTrackIds[currentIndex];
+        const info = customTrackInfo[vidId] || { title: "Unknown Track", artist: "Unknown Artist" };
+        
+        document.getElementById('track-name').textContent = info.title;
+        document.getElementById('artist-name').textContent = info.artist;
+        
+        if (isPlaying) {
+            document.title = `${info.title} - Yellow Taxi`;
+        }
+    }
+
+    function renderPlaylist() {
+        const ul = document.getElementById('playlist-list');
+        ul.innerHTML = '';
+
+        currentTrackIds.forEach((vidId, index) => {
+            let info = customTrackInfo[vidId] || { title: "Unknown Track", artist: "Unknown Artist" };
+            let li = document.createElement('li');
+            li.className = 'playlist-item';
+            li.dataset.vid = vidId; 
+            li.innerHTML = `
+                <span class="pl-index">${index + 1}</span>
+                <span class="pl-title">${info.title}</span>
+                <span class="pl-artist">${info.artist}</span>
+            `;
+            li.onclick = () => {
+                loadTrack(index);
+                document.getElementById('playlist-overlay').classList.remove('active');
+                document.getElementById('playlist-btn').classList.remove('active');
+            };
+            ul.appendChild(li);
+        });
+        
+        updatePlaylistHighlight(); 
+    }
+
+    function updatePlaylistHighlight() {
+        if (!currentTrackIds.length) return;
+        
+        const currentVidId = currentTrackIds[currentIndex];
+        const items = document.querySelectorAll('.playlist-item');
+        items.forEach(item => item.classList.remove('playing-track'));
+        
+        const activeItem = document.querySelector(`.playlist-item[data-vid="${currentVidId}"]`);
+        if (activeItem) {
+            activeItem.classList.add('playing-track');
+
+            setTimeout(() => {
+                activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 50);
+        }
+    }
+
+
+    document.getElementById('shuffle-btn').addEventListener('click', () => {
+        isShuffle = !isShuffle;
+        const btn = document.getElementById('shuffle-btn');
+        const currentVidId = currentTrackIds[currentIndex];
+        
+        if (isShuffle) {
+            btn.classList.add('active');
+            let tempArray = [...originalTrackIds].filter(id => id !== currentVidId);
+            
+            for (let i = tempArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [tempArray[i], tempArray[j]] = [tempArray[j], tempArray[i]];
+            }
+            
+            currentTrackIds = [currentVidId, ...tempArray];
+            currentIndex = 0; 
+            
+        } else {
+            btn.classList.remove('active');
+            currentTrackIds = [...originalTrackIds];
+            currentIndex = currentTrackIds.indexOf(currentVidId);
+        }
+        
+        renderPlaylist(); 
+    });
+
+    document.getElementById('playlist-btn').addEventListener('click', () => {
+        document.getElementById('playlist-overlay').classList.toggle('active');
+        document.getElementById('playlist-btn').classList.toggle('active');
+
+        if(document.getElementById('playlist-overlay').classList.contains('active')){
+            updatePlaylistHighlight();
+        }
+    });
+
+    const repeatAllSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>`;
+    const repeatOneSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/><path d="M11 10h1v4"/></svg>`;
+
+    document.getElementById('repeat-btn').addEventListener('click', () => {
+        isRepeatOne = !isRepeatOne;
+        const btn = document.getElementById('repeat-btn');
+        
+        if (isRepeatOne) {
+            btn.classList.add('active');
+            btn.innerHTML = repeatOneSVG;
+        } else {
+            btn.classList.remove('active');
+            btn.innerHTML = repeatAllSVG;
+        }
+    });
+
+    const playBtn = document.getElementById('play-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const vinylRecord = document.getElementById('vinyl');
+
+    playBtn.addEventListener('click', () => {
+        if (!isPlayerReady || !player) return; 
+        if (isPlaying) player.pauseVideo();
+        else player.playVideo();
+    });
+
+    prevBtn.addEventListener('click', playPrevTrack);
+    nextBtn.addEventListener('click', playNextTrack);
+
+    const pauseSVG = `<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M9 5a1 1 0 0 0-1 1v12a1 1 0 0 0 2 0V6a1 1 0 0 0-1-1zm6 0a1 1 0 0 0-1 1v12a1 1 0 0 0 2 0V6a1 1 0 0 0-1-1z"/></svg>`;
+    const playSVG = `<svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M16.7519 11.1679L10.5547 7.03647C9.89015 6.59343 9 7.06982 9 7.86852V16.1315C9 16.9302 9.89015 17.4066 10.5547 16.9635L16.7519 12.8321C17.3457 12.4362 17.3457 11.5638 16.7519 11.1679Z"/></svg>`;   
+
+    function onPlayerStateChange(event) {
         const playBtn = document.getElementById('play-btn');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const vinyl = document.getElementById('vinyl');
 
-        playBtn.addEventListener('click', () => {
-            if (!isPlayerReady || !player) return; 
-            if (isPlaying) player.pauseVideo();
-            else player.playVideo();
-        });
-
-        prevBtn.addEventListener('click', () => {
-            if (!isPlayerReady || !player) return;
-            const playlist = player.getPlaylist();
-            if (!playlist) return;
+        if (event.data === YT.PlayerState.PLAYING) {
+            isPlaying = true;
+            playBtn.innerHTML = pauseSVG;
+            vinylRecord.classList.add('spin');
             
-            const currentIndex = player.getPlaylistIndex();
-            if (currentIndex === 0) {
-                player.playVideoAt(playlist.length - 1);
+            updateTrackInfoUI();
+            updatePlaylistHighlight();
+            
+            clearInterval(progressInterval);
+            progressInterval = setInterval(updateProgressBar, 1000);
+            
+        } else if (event.data === YT.PlayerState.PAUSED) {
+            isPlaying = false;
+            playBtn.innerHTML = playSVG;
+            vinylRecord.classList.remove('spin'); 
+            
+            clearInterval(progressInterval);
+            document.title = "Music - Yellow Taxi";
+            
+        } else if (event.data === YT.PlayerState.ENDED) {
+            isPlaying = false;
+            clearInterval(progressInterval);
+            
+            if (isRepeatOne) {
+                player.seekTo(0);
+                player.playVideo();
             } else {
-                player.previousVideo();
-            }
-        });
-
-        nextBtn.addEventListener('click', () => {
-            if (!isPlayerReady || !player) return;
-            const playlist = player.getPlaylist();
-            if (!playlist) return;
-
-            const currentIndex = player.getPlaylistIndex();
-            if (currentIndex === playlist.length - 1) {
-                player.playVideoAt(0);
-            } else {
-                player.nextVideo();
-            }
-        });
-
-        const progressBar = document.getElementById('progress-bar');
-        const progressFill = document.getElementById('progress-fill');
-        const timeText = document.getElementById('time-text');
-        let isDragging = false;
-
-        function handleSeekInteraction(e) {
-            if (!isPlayerReady || !player) return;
-            
-            const rect = progressBar.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            let clickX = clientX - rect.left;
-            
-            clickX = Math.max(0, Math.min(clickX, rect.width));
-            const widthPercentage = clickX / rect.width;
-            
-            progressFill.style.width = (widthPercentage * 100) + '%';
-            
-            const duration = player.getDuration();
-            if (duration > 0) {
-                const seekTime = widthPercentage * duration;
-                timeText.textContent = formatTime(seekTime) + ' / ' + formatTime(duration);
+                playNextTrack(); 
             }
         }
+    }
 
-        const startDragging = (e) => {
-            isDragging = true;
-            progressBar.classList.add('is-dragging');
+    const progressBar = document.getElementById('progress-bar');
+    const progressFill = document.getElementById('progress-fill');
+    const currentTimeText = document.getElementById('current-time');
+    const totalTimeText = document.getElementById('total-time');
+    let isDragging = false;
+
+    function handleSeekInteraction(e) {
+        if (!isPlayerReady || !player) return;
+        const rect = progressBar.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        let clickX = clientX - rect.left;
+        clickX = Math.max(0, Math.min(clickX, rect.width));
+        
+        const widthPercentage = rect.width > 0 ? (clickX / rect.width) : 0;
+        progressFill.style.width = (widthPercentage * 100) + '%';
+        
+        const duration = player.getDuration();
+        if (duration > 0) {
+            const seekTime = widthPercentage * duration;
+            currentTimeText.textContent = formatTime(seekTime);
+            totalTimeText.textContent = formatTime(duration);
+        }
+    }
+
+    const startDragging = (e) => {
+        isDragging = true;
+        progressBar.classList.add('is-dragging');
+        handleSeekInteraction(e);
+    };
+
+    const whileDragging = (e) => {
+        if (isDragging) {
+            if(e.type === 'touchmove') e.preventDefault(); 
             handleSeekInteraction(e);
-        };
+        }
+    };
 
-        const whileDragging = (e) => {
-            if (isDragging) handleSeekInteraction(e);
-        };
+    const stopDragging = (e) => {
+        if (isDragging) {
+            isDragging = false;
+            progressBar.classList.remove('is-dragging');
+            const currentWidth = parseFloat(progressFill.style.width) / 100;
+            if (player && typeof player.seekTo === 'function' && player.getDuration() > 0) {
+                player.seekTo(currentWidth * player.getDuration(), true);
+            }
+        }
+    };
 
-        const stopDragging = (e) => {
-            if (isDragging) {
-                isDragging = false;
-                progressBar.classList.remove('is-dragging');
-                
-                const currentWidth = parseFloat(progressFill.style.width) / 100;
-                if (player && typeof player.seekTo === 'function' && player.getDuration() > 0) {
-                    player.seekTo(currentWidth * player.getDuration(), true);
+    progressBar.addEventListener('mousedown', startDragging);
+    document.addEventListener('mousemove', whileDragging);
+    document.addEventListener('mouseup', stopDragging);
+
+    progressBar.addEventListener('touchstart', startDragging, {passive: false});
+    document.addEventListener('touchmove', whileDragging, {passive: false});
+    document.addEventListener('touchend', stopDragging);
+
+    function updateProgressBar() {
+        if (!player || !isPlaying || isDragging) return; 
+        const currentTime = player.getCurrentTime();
+        const duration = player.getDuration();
+
+        if (duration > 0) {
+            document.getElementById('progress-fill').style.width = ((currentTime / duration) * 100) + '%';
+            currentTimeText.textContent = formatTime(currentTime);
+            totalTimeText.textContent = formatTime(duration);
+        }
+    }
+
+    function formatTime(seconds) {
+        if (!seconds) return "0:00";
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        return min + ':' + (sec < 10 ? '0' + sec : sec);
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA' || event.target.isContentEditable) return;
+        
+        switch(event.code) {
+            case 'Space':
+            case 'MediaPlayPause': 
+                event.preventDefault();
+                if (isPlayerReady && player) {
+                    if (isPlaying) player.pauseVideo();
+                    else player.playVideo();
                 }
-            }
-        };
-
-        progressBar.addEventListener('mousedown', startDragging);
-        document.addEventListener('mousemove', whileDragging);
-        document.addEventListener('mouseup', stopDragging);
-
-        progressBar.addEventListener('touchstart', startDragging);
-        document.addEventListener('touchmove', whileDragging);
-        document.addEventListener('touchend', stopDragging);
-
-        function onPlayerStateChange(event) {
-            const playIcon = document.querySelector('#play-btn i');
-            const trackName = document.getElementById('track-name');
-            const artistName = document.getElementById('artist-name');
-
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                playIcon.classList.remove('fa-play');
-                playIcon.classList.add('fa-pause');
-                vinyl.classList.add('spin'); 
-                
-                if (typeof player.getVideoData === 'function') {
-                    const videoData = player.getVideoData();
-                    if (videoData) {
-                        const vidId = videoData.video_id;
-                        
-                        if (customTrackInfo[vidId]) {
-                            trackName.textContent = customTrackInfo[vidId].title;
-                            artistName.textContent = customTrackInfo[vidId].artist;
-                        } else {
-                            if (videoData.title) trackName.textContent = videoData.title;
-                            if (videoData.author) artistName.textContent = videoData.author;
-                        }
-                    }
+                break;
+            case 'ArrowRight':
+            case 'MediaTrackNext': 
+                document.getElementById('next-btn').click();
+                break;
+            case 'ArrowLeft':
+            case 'MediaTrackPrevious':
+                document.getElementById('prev-btn').click();
+                break;
+            case 'ArrowUp':
+                event.preventDefault();
+                if (isPlayerReady && player && typeof player.getVolume === 'function') {
+                    let currentVol = player.getVolume();
+                    player.setVolume(Math.min(currentVol + 10, 100));
                 }
-                progressInterval = setInterval(updateProgressBar, 1000);
-                
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                playIcon.classList.remove('fa-pause');
-                playIcon.classList.add('fa-play');
-                vinyl.classList.remove('spin'); 
-                clearInterval(progressInterval);
-            }
+                break;
+            case 'ArrowDown':
+                event.preventDefault();
+                if (isPlayerReady && player && typeof player.getVolume === 'function') {
+                    let currentVol = player.getVolume();
+                    player.setVolume(Math.max(currentVol - 10, 0));
+                }
+                break;
         }
-
-        function updateProgressBar() {
-            if (!player || !isPlaying || isDragging) return; 
-            
-            const currentTime = player.getCurrentTime();
-            const duration = player.getDuration();
-            
-            if (duration > 0) {
-                document.getElementById('progress-fill').style.width = ((currentTime / duration) * 100) + '%';
-                document.getElementById('time-text').textContent = formatTime(currentTime) + ' / ' + formatTime(duration);
-            }
-        }
-
-        function formatTime(seconds) {
-            if (!seconds) return "0:00";
-            const min = Math.floor(seconds / 60);
-            const sec = Math.floor(seconds % 60);
-            return min + ':' + (sec < 10 ? '0' + sec : sec);
-        }
-
-        document.addEventListener('keydown', function(event) {
-            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-                return;
-            }
-
-            switch(event.code) {
-                case 'Space':
-                case 'MediaPlayPause': 
-                    event.preventDefault();
-                    document.getElementById('play-btn').click();
-                    break;
-                    
-                case 'ArrowRight':
-                case 'MediaTrackNext': 
-                    document.getElementById('next-btn').click();
-                    break;
-                    
-                case 'ArrowLeft':
-                case 'MediaTrackPrevious':
-                    document.getElementById('prev-btn').click();
-                    break;
-                    
-                case 'ArrowUp':
-                    event.preventDefault();
-                    if (isPlayerReady && player && typeof player.getVolume === 'function') {
-                        let currentVol = player.getVolume();
-                        player.setVolume(Math.min(currentVol + 10, 100));
-                    }
-                    break;
-                    
-                case 'ArrowDown':
-                    event.preventDefault();
-                    if (isPlayerReady && player && typeof player.getVolume === 'function') {
-                        let currentVol = player.getVolume();
-                        player.setVolume(Math.max(currentVol - 10, 0));
-                    }
-                    break;
-            }
-        });
+    });
 </script>
-
 </body>
+
 </html>
