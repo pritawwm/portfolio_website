@@ -71,10 +71,6 @@ body {
     justify-content: space-between;
 }
 
-.suggestions li:hover {
-    background-color: #f8f9fa; 
-}
-
 .suggestion-link {
     padding: 4px 20px;
     flex-grow: 1;
@@ -82,11 +78,6 @@ body {
     color: #202124;
     text-decoration: none;
     display: block;
-}
-
-.suggestions li:hover .suggestion-link,
-.suggestions li:hover .bold-text {
-    color: #1a0dab;
 }
 
 .bold-text {
@@ -101,12 +92,42 @@ body {
     visibility: hidden;
 }
 
-.suggestions li:hover .suggestion-remove {
-    visibility: visible; 
+@media (hover: hover) {
+    .suggestions li:hover {
+        background-color: #f8f9fa; 
+    }
+    .suggestions li:hover .suggestion-link,
+    .suggestions li:hover .bold-text {
+        color: #1a0dab;
+    }
+    .suggestions li:hover .suggestion-remove {
+        visibility: visible; 
+    }
+    .suggestion-remove:hover {
+        text-decoration: underline;
+    }
+    .btn:hover {
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        border: 1px solid #dadce0;
+        color: #202124;
+    }
+    .nav-link:hover {
+        text-decoration: underline #70757a;
+    }
+    .modern-popup-btn:hover {
+        background-color: #1557b0;
+    }
 }
 
-.suggestion-remove:hover {
-    text-decoration: underline;
+.suggestions li.simulated-hover {
+    background-color: #f8f9fa; 
+}
+.suggestions li.simulated-hover .suggestion-link,
+.suggestions li.simulated-hover .bold-text {
+    color: #1a0dab;
+}
+.suggestions li.simulated-hover .suggestion-remove {
+    visibility: visible; 
 }
 
 .buttons-row {
@@ -132,12 +153,6 @@ body {
     box-sizing: border-box;
 }
 
-.btn:hover {
-    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-    border: 1px solid #dadce0;
-    color: #202124;
-}
-
 .report-link {
     text-align: right;
     padding-right: 20px;
@@ -157,10 +172,6 @@ body {
     font-style: italic;
     text-decoration: underline transparent;
     transition: text-decoration 0.2s ease;
-}
-
-.nav-link:hover {
-    text-decoration: underline #70757a;
 }
 
 .modern-popup {
@@ -190,8 +201,8 @@ body {
     font-weight: bold;
 }
 
-.modern-popup-btn:hover {
-    background-color: #1557b0;
+#mobile-overlay {
+    display: none;
 }
 
 @media (max-width: 600px) {
@@ -210,5 +221,45 @@ body {
     
     .btn {
         width: 100%;
+    }
+
+    #mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        pointer-events: none !important; 
+        background: transparent;
+    }
+
+    #mobile-overlay.active-loader {
+        display: block;
+    }
+
+    .hand-cursor {
+        position: absolute;
+        top: 100vh; 
+        left: 100vw; 
+        width: 28px;
+        height: 28px;
+        z-index: 10000;
+        pointer-events: none !important;
+        opacity: 0;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        
+        transition: top 1.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                    left 1.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                    opacity 0.3s ease-in, 
+                    transform 0.1s ease-out;
+        
+        transform: scale(1);
+        transform-origin: top left;
+    }
+
+    .hand-cursor.cursor-click {
+        transform: scale(0.85);
     }
 }
