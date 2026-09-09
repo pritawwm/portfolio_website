@@ -25,7 +25,8 @@ body, html {
     left: 0;
     width: 100vw;
     height: 100dvh;
-    z-index: 0;
+    height: 100lvh;
+    z-index: 0 !important;
     pointer-events: none;
 }
 
