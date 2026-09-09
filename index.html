@@ -39,10 +39,18 @@
 
   gtag('config', 'G-623120DN5V');
 </script>
-
-
 </head>
+
+
 <body>
+
+    <div id="mobile-overlay">
+        <div id="tutorial-hand" class="hand-cursor">
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                <path d="M12.5 2C13.88 2 15 3.12 15 4.5V11.27L15.55 10.6C16.27 9.72 17.61 9.64 18.43 10.43C18.79 10.77 19 11.25 19 11.76V12.76L19.47 12.36C20.25 11.69 21.44 11.75 22.15 12.48C22.46 12.8 22.64 13.23 22.65 13.68L22.95 13.43C23.68 12.82 24.77 12.92 25.41 13.63C25.79 14.07 26 14.65 26 15.26V20C26 24.97 21.97 29 17 29H12.5C9.8 29 7.28 27.51 5.91 25.11L3.36 20.67C2.83 19.74 3.03 18.53 3.84 17.82C4.62 17.15 5.8 17.22 6.5 17.98L10 21.8V4.5C10 3.12 11.12 2 12.5 2Z" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </div>
 
     <div class="logo">
         <a href="/game">
@@ -50,7 +58,7 @@
         </a>
     </div>
 
-<div class="search-container">
+    <div class="search-container">
         
         <div class="input-row">
             <input type="text" id="typing-text" class="input-text" value="" placeholder="Ask Google" autofocus>
@@ -68,7 +76,7 @@
             <div class="separator"></div>
 
         <ul class="suggestions" id="suggestion-list">
-            <li>
+            <li id="name-target">
                 <a href="/about" class="suggestion-link" data-text="pritam saha"></a>
                 <span class="suggestion-remove">Remove</span>
             </li>
@@ -84,7 +92,7 @@
                 <a href="https://x.com/pritawwm" target="_blank" class="suggestion-link" data-text="pritam saha twitter"></a>
                 <span class="suggestion-remove">Remove</span>
             </li>
-            <li>
+            <li id="single-target">
                 <a href="/date" class="suggestion-link" data-text="is pritam saha single"></a>
                 <span class="suggestion-remove">Remove</span>
             </li>
@@ -119,6 +127,114 @@
             const dropdown = document.getElementById("dropdown-results");
             const links = document.querySelectorAll(".suggestion-link");
             
+            const isMobileView = window.innerWidth <= 600;
+            const mobileOverlay = document.getElementById("mobile-overlay");
+            const tutorialHand = document.getElementById("tutorial-hand");
+            const nameTarget = document.getElementById("name-target");
+            const singleTarget = document.getElementById("single-target");
+
+            let currentMobileTutorialStep = 0;
+
+            const simulatedHover = (element, isActive) => {
+                if (!element) return;
+                if (isActive) {
+                    element.classList.add("simulated-hover");
+                } else {
+                    element.classList.remove("simulated-hover");
+                }
+            };
+
+            function runMobileTutorialStep() {
+                if (!isMobileView || currentMobileTutorialStep > 7) return;
+
+                switch (currentMobileTutorialStep) {
+                    case 0:
+                        mobileOverlay.classList.add("active-loader");
+
+                        tutorialHand.style.opacity = "1";
+                        tutorialHand.style.left = (window.innerWidth + 20) + "px"; 
+                        tutorialHand.style.top = "50vh"; 
+
+                        currentMobileTutorialStep++;
+                        setTimeout(runMobileTutorialStep, 300); 
+                        break;
+                    case 1:
+                        if (nameTarget) {
+                            const rect = nameTarget.getBoundingClientRect();
+                            tutorialHand.style.top = (rect.top + (rect.height / 2)) + "px";
+                            tutorialHand.style.left = (rect.left + (rect.width / 2)) + "px";
+
+                            currentMobileTutorialStep++;
+                            setTimeout(runMobileTutorialStep, 1000); 
+                        }
+                        break;
+                    case 2:
+                        simulatedHover(nameTarget, true);
+                        setTimeout(() => {
+                            tutorialHand.classList.add("cursor-click");
+                            nameTarget.style.transform = "scale(0.98)";
+                            nameTarget.style.transition = "transform 0.1s ease";
+
+                            currentMobileTutorialStep++;
+                            setTimeout(runMobileTutorialStep, 400); 
+                        }, 200); 
+                        break;
+                    case 3:
+                        tutorialHand.classList.remove("cursor-click");
+                        nameTarget.style.transform = "scale(1)";
+                        simulatedHover(nameTarget, false);
+
+                        currentMobileTutorialStep++;
+                        setTimeout(runMobileTutorialStep, 500); 
+                        break;
+                    case 4:
+                        if (singleTarget) {
+                            const rect = singleTarget.getBoundingClientRect();
+                            tutorialHand.style.top = (rect.top + (rect.height / 2)) + "px";
+                            tutorialHand.style.left = (rect.left + (rect.width / 2)) + "px";
+
+                            currentMobileTutorialStep++;
+                            setTimeout(runMobileTutorialStep, 1000); 
+                        }
+                        break;
+                    case 5:
+                        simulatedHover(singleTarget, true);
+                        setTimeout(() => {
+                            tutorialHand.classList.add("cursor-click");
+                            singleTarget.style.transform = "scale(0.98)";
+                            singleTarget.style.transition = "transform 0.1s ease";
+
+                            currentMobileTutorialStep++;
+                            setTimeout(runMobileTutorialStep, 400); 
+                        }, 200); 
+                        break;
+                    case 6:
+                        tutorialHand.classList.remove("cursor-click");
+                        singleTarget.style.transform = "scale(1)";
+                        simulatedHover(singleTarget, false);
+
+                        currentMobileTutorialStep++;
+                        setTimeout(runMobileTutorialStep, 500); 
+                        break;
+                    case 7:
+                        tutorialHand.style.left = (window.innerWidth + 50) + "px"; 
+                        tutorialHand.style.top = "50vh"; 
+
+                        currentMobileTutorialStep++;
+                        setTimeout(runMobileTutorialStep, 1000); 
+                        break;
+                    case 8:
+                        tutorialHand.style.opacity = "0";
+                        setTimeout(() => {
+                            simulatedHover(nameTarget, false);
+                            simulatedHover(singleTarget, false);
+                            mobileOverlay.classList.remove("active-loader"); 
+                            mobileOverlay.style.display = "none";
+                        }, 300); 
+                        break;
+                }
+            }
+
             const scriptSequence = "pritawwm\b\b\bm saha"; 
             let currentText = "";
             let index = 0;
@@ -130,12 +246,12 @@
                     const fullText = link.getAttribute("data-text");
                     const lowerFull = fullText.toLowerCase();
                     const matchIndex = lowerFull.indexOf(lowerInput);
-                    
+
                     if (matchIndex !== -1) {
                         const before = fullText.substring(0, matchIndex);
                         const match = fullText.substring(matchIndex, matchIndex + currentInput.length);
                         const after = fullText.substring(matchIndex + currentInput.length);
-                        
+
                         link.innerHTML = `<b>${before}</b>${match}<b>${after}</b>`;
                     } else {
                         link.innerHTML = `<b>${fullText}</b>`;
@@ -148,7 +264,7 @@
                     if (index === 0) {
                         dropdown.style.display = "block";
                     }
-                    
+
                     const char = scriptSequence.charAt(index);
 
                     if (char === '\b') {
@@ -156,12 +272,12 @@
                     } else {
                         currentText += char;
                     }
-                    
+
                     inputElement.value = currentText;
                     updateSuggestions(currentText);
-                    
+
                     index++;
-                    
+
                     let typingSpeed = Math.floor(Math.random() * 130) + 120;
 
                     if (char === 'm' && currentText === "pritawwm") {
@@ -173,6 +289,8 @@
                     }
 
                     setTimeout(typeLetter, typingSpeed);
+                } else if (isMobileView) {
+                    setTimeout(runMobileTutorialStep, 600);
                 }
             }
 
