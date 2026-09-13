@@ -1,0 +1,559 @@
+let audioCtx = null;
+let isMuted = false;
+
+const soundToggle = document.getElementById("soundToggle");
+soundToggle.addEventListener("click", () => {
+  isMuted = !isMuted;
+  soundToggle.innerText = isMuted ? "[SOUND: OFF]" : "[SOUND: ON]";
+});
+
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+}
+
+function playSound(type) {
+  if (isMuted || !audioCtx) return;
+
+  const osc = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+  osc.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+
+  const now = audioCtx.currentTime;
+
+  if (type === "jump") {
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(300, now);
+    osc.frequency.exponentialRampToValueAtTime(600, now + 0.1);
+    gainNode.gain.setValueAtTime(0.1, now);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+    osc.start(now);
+    osc.stop(now + 0.1);
+  } else if (type === "score" || type === "win") {
+    osc.type = "square";
+    osc.frequency.setValueAtTime(800, now);
+    if (type === "win") {
+      osc.frequency.exponentialRampToValueAtTime(1200, now + 0.3);
+    }
+    gainNode.gain.setValueAtTime(0.05, now);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+    osc.start(now);
+    osc.stop(now + 0.3);
+  } else if (type === "gameover") {
+    osc.type = "sawtooth";
+    osc.frequency.setValueAtTime(300, now);
+    osc.frequency.exponentialRampToValueAtTime(50, now + 0.3);
+    gainNode.gain.setValueAtTime(0.1, now);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+    osc.start(now);
+    osc.stop(now + 0.3);
+  }
+}
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+const gameOverScreen = document.getElementById("gameOverScreen");
+const gameOverTitle = document.getElementById("gameOverTitle");
+const scoreDisplay = document.getElementById("finalScore");
+const nameInput = document.getElementById("playerName");
+const submitBtn = document.getElementById("submitScoreBtn");
+
+let isPlaying = false;
+let gameStarted = false;
+let internalScore = 0;
+let currentPValue = "1.0000";
+let frames = 0;
+let gameSpeed = 5;
+let animationId;
+let spawnTimer = 0;
+
+const GROUND_Y = 250;
+const GRID_MINOR = 20;
+const GRID_MAJOR = GRID_MINOR * 5;
+let absoluteGridScroll = 0;
+let axisOffset = 0;
+
+const player = {
+  x: 80,
+  y: GROUND_Y,
+  width: 14,
+  height: 24,
+  vy: 0,
+  gravity: 0.7,
+  jumpPower: -11.5,
+  isGrounded: true,
+  isDucking: false,
+};
+
+let obstacles = [];
+let keys = {};
+
+window.addEventListener("keydown", (e) => {
+  keys[e.code] = true;
+
+  if (e.code === "Enter") {
+    if (!gameStarted) {
+      e.preventDefault();
+      startGame();
+    } else if (gameOverScreen.classList.contains("active")) {
+      if (document.activeElement === nameInput) {
+        submitBtn.click();
+      } else {
+        e.preventDefault();
+        startGame();
+      }
+    }
+  }
+
+  if (e.code === "Space" || e.code === "ArrowUp") {
+    if (!gameStarted) {
+      e.preventDefault();
+      startGame();
+    } else if (player.isGrounded && isPlaying) {
+      e.preventDefault();
+      player.vy = player.jumpPower;
+      player.isGrounded = false;
+      playSound("jump");
+    }
+  }
+});
+
+window.addEventListener("keyup", (e) => {
+  keys[e.code] = false;
+});
+
+canvas.addEventListener(
+  "touchstart",
+  (e) => {
+    e.preventDefault();
+
+    if (!gameStarted) {
+      startGame();
+      return;
+    }
+    if (!isPlaying) return;
+
+    const touchX = e.touches[0].clientX;
+    const screenWidth = window.innerWidth;
+
+    if (touchX > screenWidth / 2) {
+      if (player.isGrounded) {
+        player.vy = player.jumpPower;
+        player.isGrounded = false;
+        playSound("jump");
+      }
+    } else {
+      keys["ArrowDown"] = true;
+    }
+  },
+  { passive: false },
+);
+
+canvas.addEventListener("touchend", (e) => {
+  keys["ArrowDown"] = false;
+});
+
+function drawGrid() {
+  absoluteGridScroll += gameSpeed * 0.2;
+
+  let offsetX = -(absoluteGridScroll % GRID_MAJOR);
+
+  ctx.strokeStyle = "#f0f0f0";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+
+  for (let x = offsetX; x < canvas.width; x += GRID_MINOR) {
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, canvas.height);
+  }
+
+  for (let y = GROUND_Y; y >= 0; y -= GRID_MINOR) {
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+  }
+  for (let y = GROUND_Y; y <= canvas.height; y += GRID_MINOR) {
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+  }
+  ctx.stroke();
+
+  ctx.strokeStyle = "#dfdfdf";
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+
+  for (let x = offsetX; x < canvas.width; x += GRID_MAJOR) {
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, canvas.height);
+  }
+
+  for (let y = GROUND_Y; y >= 0; y -= GRID_MAJOR) {
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+  }
+  for (let y = GROUND_Y; y <= canvas.height; y += GRID_MAJOR) {
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+  }
+  ctx.stroke();
+}
+
+function drawAxis() {
+  axisOffset -= gameSpeed;
+  if (axisOffset <= -GRID_MAJOR) axisOffset += GRID_MAJOR;
+
+  ctx.strokeStyle = "#000000";
+  ctx.lineWidth = 2;
+
+  ctx.beginPath();
+  ctx.moveTo(0, GROUND_Y);
+  ctx.lineTo(canvas.width, GROUND_Y);
+
+  for (
+    let x = axisOffset - GRID_MAJOR;
+    x < canvas.width + GRID_MAJOR;
+    x += GRID_MAJOR
+  ) {
+    ctx.moveTo(x, GROUND_Y);
+    ctx.lineTo(x, GROUND_Y + 8);
+
+    let minorSpacing = GRID_MAJOR / 5;
+    for (let i = 1; i <= 4; i++) {
+      let subX = x + i * minorSpacing;
+      ctx.moveTo(subX, GROUND_Y);
+      ctx.lineTo(subX, GROUND_Y + 4);
+    }
+  }
+  ctx.stroke();
+}
+
+function spawnObstacle() {
+  const type = Math.random();
+  let obsWidth = 14;
+  let obsHeight;
+  let yPos;
+
+  if (type < 0.25) {
+    obsHeight = 20;
+    yPos = GROUND_Y - 35;
+  } else if (type < 0.5) {
+    obsHeight = 20;
+    yPos = GROUND_Y - 60;
+  } else {
+    obsHeight = Math.random() * 20 + 20;
+    yPos = GROUND_Y - obsHeight;
+  }
+
+  obstacles.push({
+    x: canvas.width,
+    y: yPos,
+    width: obsWidth,
+    height: obsHeight,
+  });
+}
+
+function drawErrorBar(obs) {
+  ctx.strokeStyle = "#333333";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  const centerX = obs.x + obs.width / 2;
+  ctx.moveTo(centerX, obs.y);
+  ctx.lineTo(centerX, obs.y + obs.height);
+  ctx.moveTo(obs.x, obs.y);
+  ctx.lineTo(obs.x + obs.width, obs.y);
+  ctx.moveTo(obs.x, obs.y + obs.height);
+  ctx.lineTo(obs.x + obs.width, obs.y + obs.height);
+  ctx.stroke();
+}
+
+function drawInitialState() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  gameSpeed = 0;
+  drawGrid();
+  drawAxis();
+
+  player.y = GROUND_Y - player.height;
+  ctx.fillStyle = "#000000";
+  ctx.font = "20px 'Press Start 2P', monospace";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(
+    "*",
+    player.x + player.width / 2,
+    player.y + player.height / 2 + 5,
+  );
+
+  ctx.fillStyle = "#444444";
+  ctx.font = "12px 'Press Start 2P', monospace";
+  ctx.textAlign = "left";
+  ctx.fillText(`P-value: 1.0000`, 15, 30);
+}
+
+function update() {
+  if (!isPlaying) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  drawGrid();
+
+  if (keys["ArrowDown"]) {
+    player.isDucking = true;
+    player.height = 12;
+    if (player.isGrounded) player.y = GROUND_Y - player.height;
+    if (!player.isGrounded) player.vy += 1;
+  } else {
+    player.isDucking = false;
+    player.height = 24;
+  }
+
+  player.vy += player.gravity;
+  player.y += player.vy;
+
+  if (player.y + player.height >= GROUND_Y) {
+    player.y = GROUND_Y - player.height;
+    player.vy = 0;
+    player.isGrounded = true;
+  }
+
+  ctx.fillStyle = "#000000";
+  ctx.font = "20px 'Press Start 2P', monospace";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  if (player.isDucking) {
+    ctx.save();
+    ctx.translate(
+      player.x + player.width / 2,
+      player.y + player.height / 2 + 2,
+    );
+    ctx.scale(1, 0.5);
+    ctx.fillText("*", 0, 0);
+    ctx.restore();
+  } else {
+    ctx.fillText(
+      "*",
+      player.x + player.width / 2,
+      player.y + player.height / 2 + 5,
+    );
+  }
+
+  for (let i = 0; i < obstacles.length; i++) {
+    let obs = obstacles[i];
+    obs.x -= gameSpeed;
+    drawErrorBar(obs);
+
+    let margin = 4;
+    if (
+      player.x + margin < obs.x + obs.width &&
+      player.x + player.width - margin > obs.x &&
+      player.y + margin < obs.y + obs.height &&
+      player.y + player.height - margin > obs.y
+    ) {
+      endGame(false);
+    }
+  }
+
+  obstacles = obstacles.filter((obs) => obs.x + obs.width > 0);
+  drawAxis();
+
+  spawnTimer--;
+  if (spawnTimer <= 0) {
+    spawnObstacle();
+    spawnTimer =
+      Math.floor(Math.random() * 50) + (50 - Math.min(gameSpeed, 10) * 3);
+  }
+
+  frames++;
+  if (frames % 10 === 0) {
+    internalScore++;
+    if (internalScore % 100 === 0) {
+      gameSpeed += 0.5;
+      playSound("score");
+    }
+  }
+
+  currentPValue = (Math.max(1, 10000 - internalScore) / 10000).toFixed(4);
+
+  ctx.fillStyle = "#444444";
+  ctx.font = "12px 'Press Start 2P', monospace";
+  ctx.textAlign = "left";
+  ctx.fillText(`P-value: ${currentPValue}`, 15, 30);
+
+  if (currentPValue === "0.0001") {
+    endGame(true);
+    return;
+  }
+
+  animationId = requestAnimationFrame(update);
+}
+
+function startGame() {
+  initAudio();
+
+  isPlaying = true;
+  gameStarted = true;
+  internalScore = 0;
+  currentPValue = "1.0000";
+  frames = 0;
+  gameSpeed = 6;
+  obstacles = [];
+
+  player.y = GROUND_Y - player.height;
+  player.vy = player.jumpPower;
+  player.isGrounded = false;
+  playSound("jump");
+
+  spawnTimer = 40;
+
+  nameInput.value = "";
+  submitBtn.disabled = true;
+  submitBtn.innerText = "Publish Result";
+
+  gameOverScreen.classList.remove("active");
+
+  document.getElementById("retryBtn").blur();
+
+  update();
+}
+
+function endGame(isWin) {
+  isPlaying = false;
+  cancelAnimationFrame(animationId);
+
+  if (isWin) {
+    playSound("win");
+    gameOverTitle.innerText = "Very high statistical significance!";
+    gameOverTitle.className = "overlay-title success-text";
+  } else {
+    playSound("gameover");
+    gameOverTitle.innerText = "Game Over!";
+    gameOverTitle.className = "overlay-title danger-text";
+  }
+
+  scoreDisplay.innerText = currentPValue;
+  gameOverScreen.classList.add("active");
+}
+
+document.getElementById("retryBtn").addEventListener("click", startGame);
+
+nameInput.addEventListener("input", () => {
+  submitBtn.disabled = nameInput.value.trim().length === 0;
+});
+
+submitBtn.addEventListener("click", async () => {
+  const authorName = nameInput.value.trim();
+
+  if (!authorName) {
+    nameInput.focus();
+    return;
+  }
+
+  submitBtn.innerText = "Publishing...";
+  submitBtn.disabled = true;
+
+  const scoreData = {
+    name: authorName,
+    score: currentPValue,
+    timestamp: new Date().getTime(),
+  };
+
+  try {
+    await fetch(DB_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(scoreData),
+    });
+    submitBtn.innerText = "Published!";
+    fetchLeaderboard();
+  } catch (e) {
+    submitBtn.innerText = "Network Error";
+    submitBtn.disabled = false;
+  }
+});
+
+const DB_URL =
+  "https://dot-plot-runner-default-rtdb.asia-southeast1.firebasedatabase.app/scores.json";
+
+function getWeeklyTimestamps() {
+  const now = new Date();
+  const dayOfWeek = now.getDay();
+  const distanceToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+
+  const lastMonday = new Date(now);
+  lastMonday.setDate(now.getDate() - distanceToMonday);
+  lastMonday.setHours(0, 0, 0, 0);
+
+  const nextMonday = new Date(lastMonday);
+  nextMonday.setDate(lastMonday.getDate() + 7);
+
+  return {
+    lastMondayTS: lastMonday.getTime(),
+    nextMondayTS: nextMonday.getTime(),
+  };
+}
+
+function updateCountdownUI() {
+  const { nextMondayTS } = getWeeklyTimestamps();
+  const now = new Date().getTime();
+  const diff = nextMondayTS - now;
+
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+  document.getElementById("resetTimer").innerText =
+    `Resets in: ${d}d ${h}h ${m}m`;
+}
+
+updateCountdownUI();
+setInterval(updateCountdownUI, 60000);
+
+async function fetchLeaderboard() {
+  try {
+    const response = await fetch(DB_URL);
+    const data = await response.json();
+    const tbody = document.getElementById("leaderboardBody");
+
+    if (!data) {
+      tbody.innerHTML =
+        '<tr><td colspan="3">No data for this week yet. Be the first!</td></tr>';
+      return;
+    }
+
+    const { lastMondayTS } = getWeeklyTimestamps();
+
+    const weeklyScores = Object.values(data)
+      .filter((entry) => entry.timestamp >= lastMondayTS)
+      .sort((a, b) => parseFloat(a.score) - parseFloat(b.score))
+      .slice(0, 3);
+
+    tbody.innerHTML = "";
+    if (weeklyScores.length === 0) {
+      tbody.innerHTML =
+        '<tr><td colspan="3">Registry cleared. Awaiting new data...</td></tr>';
+      return;
+    }
+
+    weeklyScores.forEach((entry, index) => {
+      const rowClass = index === 0 ? "rank-1" : "";
+      tbody.innerHTML += `
+                    <tr class="${rowClass}">
+                        <td>#${index + 1}</td>
+                        <td>${entry.name.replace(/</g, "&lt;")}</td>
+                        <td>${entry.score}</td>
+                    </tr>
+                `;
+    });
+  } catch (error) {
+    document.getElementById("leaderboardBody").innerHTML =
+      '<tr><td colspan="3">Offline: Connect database to track scores.</td></tr>';
+  }
+}
+
+drawInitialState();
+fetchLeaderboard();

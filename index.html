@@ -1,0 +1,349 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("theme");
+        const theme =
+          savedTheme ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Pritam Saha - Google Search</title>
+
+    <meta
+      name="description"
+      content="Explore the personal portfolio of Pritam Saha."
+    />
+
+    <meta property="og:title" content="Pritam Saha | Portfolio" />
+    <meta
+      property="og:description"
+      content="Explore the personal portfolio of Pritam Saha."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pritamsaha.co.in/" />
+    <meta
+      property="og:image"
+      content="https://pritamsaha.co.in/assets/og-index.png"
+    />
+
+    <link rel="canonical" href="https://pritamsaha.co.in/index.html" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/homepage.css" />
+
+    <script src="js/index.js" defer></script>
+
+    <link rel="manifest" href="assets/site.webmanifest" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/favicon-16x16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/apple-touch-icon.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Pritam Saha",
+        "jobTitle": "Researcher",
+        "url": "https://pritamsaha.co.in",
+        "sameAs": [
+          "https://x.com/pritawwm",
+          "https://www.linkedin.com/in/pritam-saha-41b2b21b9",
+          "https://github.com/pritawwm"
+        ]
+      }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-623120DN5V"
+    ></script>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag("js", new Date());
+      gtag("config", "G-623120DN5V");
+    </script>
+  </head>
+
+  <body>
+    <button type="button" id="themeToggle" aria-label="Switch to dark theme">
+      <span class="toggle-track">
+        <span class="toggle-thumb"></span>
+      </span>
+
+      <span id="themeToggleText">Theme: Light</span>
+    </button>
+
+    <div id="mobile-overlay">
+      <div id="tutorial-hand" class="hand-cursor">
+        <svg
+          viewBox="0 0 32 32"
+          xmlns="http://www.w3.org/2000/svg"
+          style="width: 100%; height: 100%"
+        >
+          <path
+            d="M12.5 2C13.88 2 15 3.12 15 4.5V11.27L15.55 10.6C16.27 9.72 17.61 9.64 18.43 10.43C18.79 10.77 19 11.25 19 11.76V12.76L19.47 12.36C20.25 11.69 21.44 11.75 22.15 12.48C22.46 12.8 22.64 13.23 22.65 13.68L22.95 13.43C23.68 12.82 24.77 12.92 25.41 13.63C25.79 14.07 26 14.65 26 15.26V20C26 24.97 21.97 29 17 29H12.5C9.8 29 7.28 27.51 5.91 25.11L3.36 20.67C2.83 19.74 3.03 18.53 3.84 17.82C4.62 17.15 5.8 17.22 6.5 17.98L10 21.8V4.5C10 3.12 11.12 2 12.5 2Z"
+            fill="#ffffff"
+            stroke="#000000"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <div class="logo">
+      <a href="game.html">
+        <img src="assets/google_logo.svg" alt="Google" />
+      </a>
+    </div>
+
+    <div class="search-container">
+      <div class="input-row">
+        <input
+          type="text"
+          id="typing-text"
+          class="input-text"
+          value=""
+          placeholder="Ask Google"
+          autofocus
+        />
+
+        <button
+          type="button"
+          id="micButton"
+          class="mic-link"
+          aria-label="Search by voice"
+          aria-pressed="false"
+          style="
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+          "
+        >
+          <svg
+            class="mic-icon"
+            focusable="false"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#4285f4"
+              d="m12 15c1.66 0 3-1.31 3-2.97v-7.02c0-1.66-1.34-3.01-3-3.01s-3 1.34-3 3.01v7.02c0 1.66 1.34 2.97 3 2.97z"
+            ></path>
+
+            <path fill="#34a853" d="m11 18.08h2v3.92h-2z"></path>
+
+            <path
+              fill="#fbbc05"
+              d="m7.05 16.87c-1.27-1.33-2.05-2.8-2.05-4.67h2c0 1.45.56 2.42 1.47 3.38v.32l-1.15 1.18z"
+            ></path>
+
+            <path
+              fill="#ea4335"
+              d="m12 16.93a4.97 5.25 0 0 1 -3.54 -1.55l-1.41 1.49c1.26 1.34 3.02 2.13 4.95 2.13 3.87 0 6.99-2.92 6.99-7h-1.99c0 2.92-2.24 4.93-5 4.93z"
+            ></path>
+          </svg>
+
+          <span
+            id="voice-status"
+            role="status"
+            aria-live="polite"
+            style="font-size: 14px; color: #5f6368; font-family: sans-serif"
+          ></span>
+        </button>
+      </div>
+
+      <div id="dropdown-results" style="display: none; width: 100%">
+        <div class="separator"></div>
+
+        <ul class="suggestions" id="suggestion-list">
+          <li id="name-target">
+            <a
+              href="about.html"
+              class="suggestion-link"
+              data-text="pritam saha"
+            ></a>
+
+            <span class="suggestion-remove">Remove</span>
+          </li>
+
+          <li>
+            <a
+              href="interests.html"
+              class="suggestion-link"
+              data-text="pritam saha interests"
+            ></a>
+
+            <span class="suggestion-remove">Remove</span>
+          </li>
+
+          <li>
+            <a
+              href="resume.html"
+              class="suggestion-link"
+              data-text="pritam saha resume"
+            ></a>
+
+            <span class="suggestion-remove">Remove</span>
+          </li>
+
+          <li>
+            <a
+              href="https://x.com/pritawwm"
+              target="_blank"
+              class="suggestion-link"
+              data-text="pritam saha twitter"
+            ></a>
+
+            <span class="suggestion-remove">Remove</span>
+          </li>
+
+          <li id="single-target">
+            <a
+              href="date.html"
+              class="suggestion-link"
+              data-text="is pritam saha single"
+            ></a>
+
+            <span class="suggestion-remove">Remove</span>
+          </li>
+
+          <li>
+            <a
+              href="https://linkedin.com/in/pritam-saha-41b2b21b9"
+              target="_blank"
+              class="suggestion-link"
+              data-text="pritam saha linkedin"
+            ></a>
+
+            <span class="suggestion-remove">Remove</span>
+          </li>
+
+          <li>
+            <a
+              href="music.html"
+              class="suggestion-link"
+              data-text="does pritam saha like music"
+            ></a>
+
+            <span class="suggestion-remove">Remove</span>
+          </li>
+
+          <li>
+            <a
+              href="mailto:pritawwm@gmail.com"
+              class="suggestion-link"
+              data-text="pritam saha email"
+            ></a>
+
+            <span class="suggestion-remove">Remove</span>
+          </li>
+        </ul>
+
+        <div class="buttons-row">
+          <div
+            class="btn"
+            onclick="
+              window.open(
+                'https://www.google.com/search?q=Pritam+Saha+iisc',
+                '_blank',
+              )
+            "
+          >
+            Google Search
+          </div>
+
+          <div class="btn" onclick="window.location.href = 'game.html'">
+            Take a Break
+          </div>
+        </div>
+
+        <div class="report-link">
+          <span id="openNavBtn" class="nav-link">Site Navigation</span>
+        </div>
+      </div>
+    </div>
+
+    <dialog id="navPopup" class="modern-popup">
+      <div class="popup-content">
+        <h3 style="margin-top: 0; color: #202124">How to use this site</h3>
+
+        <ul
+          style="
+            text-align: left;
+            line-height: 1.6;
+            color: #4d5156;
+            padding-left: 20px;
+          "
+        >
+          <li>
+            <strong>Search Suggestions:</strong> Click the dropdown links to
+            view my Resume, Projects, and Socials.
+          </li>
+
+          <li>
+            <strong>Restore Suggestions:</strong> Refresh the page to bring back
+            any search suggestions you have removed.
+          </li>
+
+          <li>
+            <strong>Voice Search:</strong> Click the microphone icon to search
+            for information about me.
+          </li>
+
+          <li>
+            <strong>Google Search:</strong> View my digital footprint on the
+            web.
+          </li>
+
+          <li>
+            <strong>Take a Break:</strong> Play the hidden Outlier Escape game!
+          </li>
+        </ul>
+
+        <button id="closeNavBtn" class="modern-popup-btn">Got it!</button>
+      </div>
+    </dialog>
+  </body>
+</html>

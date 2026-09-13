@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("theme");
+        const theme =
+          savedTheme ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>The Outlier Escape Game | Pritam Saha</title>
+    <meta
+      name="description"
+      content="Take a break and play The Outlier Escape Game, a fun interactive browser game"
+    />
+    <meta property="og:title" content="The Outlier Escape Game" />
+    <meta
+      property="og:description"
+      content="Take a break and play The Outlier Escape Game, a fun interactive browser game"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://pritamsaha.co.in/assets/og-game.png"
+    />
+    <link rel="canonical" href="https://pritamsaha.co.in/game.html" />
+    <link rel="stylesheet" href="css/game.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/favicon-16x16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="assets/site.webmanifest" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "The Outlier Escape Game",
+        "author": { "@type": "Person", "name": "Pritam Saha" },
+        "url": "https://pritamsaha.co.in/game.html",
+        "playMode": "SinglePlayer",
+        "applicationCategory": "Game"
+      }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-623120DN5V"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-623120DN5V");
+    </script>
+
+    <script src="js/game.js" defer></script>
+  </head>
+  <body>
+    <div class="game-wrapper">
+      <div class="game-header">
+        <h2>The Outlier Escape Game</h2>
+        <div class="instructions">
+          <span class="desktop-inst"
+            ><span class="blink">Press [ENTER] to Start.</span> Press [SPACE] or
+            [UP] arrow to Jump. Hold [DOWN] arrow to Duck.</span
+          >
+          <span class="mobile-inst"
+            ><span class="blink">Tap the screen to Start.</span> Tap RIGHT half
+            to Jump. Hold LEFT half to Duck.</span
+          >
+        </div>
+      </div>
+
+      <div class="canvas-container">
+        <button id="soundToggle" class="sound-toggle-btn" title="Toggle Sound">
+          [SOUND: ON]
+        </button>
+
+        <canvas id="gameCanvas" width="700" height="300"></canvas>
+
+        <div id="gameOverScreen" class="overlay">
+          <div id="gameOverTitle" class="overlay-title danger-text">
+            Game Over!
+          </div>
+          <div>P-value: <strong id="finalScore">1.0000</strong></div>
+          <div class="input-group">
+            <input
+              type="text"
+              id="playerName"
+              placeholder="Name"
+              maxlength="15"
+            />
+          </div>
+          <div class="button-group">
+            <button class="btn" id="submitScoreBtn">Publish Result</button>
+            <button class="btn" id="retryBtn">Re-run</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="leaderboard-section">
+        <div class="leaderboard-header">
+          <h3>Leaderboard</h3>
+          <div class="timer-text" id="resetTimer">Resets in: --d --h --m</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 15%">Rank</th>
+              <th style="width: 55%">Name</th>
+              <th style="width: 30%">Score</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody">
+            <tr>
+              <td colspan="3">Loading registry...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("theme");
+        const theme =
+          savedTheme ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Plan Our Date | Pritam Saha</title>
+    <meta
+      name="description"
+      content="A fun, interactive form to plan a date with Pritam Saha."
+    />
+    <meta property="og:title" content="Plan Our Date" />
+    <meta
+      property="og:description"
+      content="A fun, interactive form to plan a date with Pritam Saha."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://pritamsaha.co.in/assets/og-date.png"
+    />
+    <link rel="canonical" href="https://pritamsaha.co.in/date.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="css/date.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/favicon-16x16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="assets/site.webmanifest" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-623120DN5V"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-623120DN5V");
+    </script>
+
+    <script src="js/date.js" defer></script>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <div class="card">
+        <form
+          id="dateForm"
+          action="https://formspree.io/f/xrpzwygj"
+          method="POST"
+        >
+          <div class="step active" id="step0" style="text-align: center">
+            <h2>Wait a minute...</h2>
+            <p class="subtitle" style="font-size: 1.1rem">
+              Why are you so curious? Do you want to go out sometime?
+            </p>
+
+            <div class="btn-group trap-group">
+              <button type="button" class="btn" onclick="nextStep(1)">
+                Yes
+              </button>
+              <button type="button" class="btn secondary" id="noBtn">No</button>
+            </div>
+          </div>
+
+          <div class="step" id="step1">
+            <h2>Pick a Day & Time</h2>
+            <p class="subtitle">Let's find a time that works.</p>
+
+            <label for="date">When are you free?</label>
+            <input type="date" id="date" name="Date" required />
+
+            <label for="time">What time works best?</label>
+            <input type="time" id="time" name="Time" required />
+
+            <button type="button" class="btn" onclick="nextStep(2)">
+              Next
+            </button>
+          </div>
+
+          <div class="step" id="step2">
+            <h2>Your Preferences</h2>
+
+            <label for="vibe">What do you have planned for us?</label>
+            <select id="vibe" name="Activity Vibe" required>
+              <option value="" disabled selected>-- choose an option --</option>
+              <option value="Coffee">Coffee & Walk</option>
+              <option value="Games">Games and Fun</option>
+              <option value="Museum">Museum/ Art Gallery</option>
+              <option value="Dinner">Dinner & Drinks</option>
+              <option value="Outdoor">Outdoor Adventure</option>
+            </select>
+
+            <label for="cuisine">What are you craving?</label>
+            <select id="cuisine" name="Cuisine Preference" required>
+              <option value="" disabled selected>-- choose an option --</option>
+              <option value="Italian">Italian/ Pasta & Pizza</option>
+              <option value="Indo-Chinese">Indo-Chinese</option>
+              <option value="Street Food">Street Food Adventure</option>
+              <option value="Just Drinks">Just Drinks/ Coffee</option>
+              <option value="Surprise">Surprise Me!</option>
+            </select>
+
+            <div class="btn-group">
+              <button type="button" class="btn secondary" onclick="prevStep(1)">
+                Back
+              </button>
+              <button type="button" class="btn" onclick="nextStep(3)">
+                Next
+              </button>
+            </div>
+          </div>
+
+          <div class="step" id="step3">
+            <h2>All Set!</h2>
+
+            <label for="contact">Social Handle or Email</label>
+            <input
+              type="text"
+              id="contact"
+              name="Contact Info"
+              placeholder="So I can reply!"
+              required
+            />
+
+            <label for="notes">Anything else I should know?</label>
+            <textarea
+              id="notes"
+              name="Additional Notes"
+              rows="3"
+              placeholder="Music taste, green/red flags, favorite spot..."
+            ></textarea>
+
+            <input type="text" name="_gotcha" style="display: none" />
+
+            <div class="btn-group">
+              <button type="button" class="btn secondary" onclick="prevStep(2)">
+                Back
+              </button>
+              <button type="submit" class="btn">Send</button>
+            </div>
+          </div>
+
+          <div class="step" id="step4" style="text-align: center">
+            <h2>It's a Date!</h2>
+            <p>
+              Your responses have been sent directly to me. Keep an eye on your
+              messages; I'll be in touch soon to confirm the details!
+            </p>
+            <div class="btn-group">
+              <a
+                id="gcalLink"
+                class="btn"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Add to Google Calendar</a
+              >
+              <a
+                id="icsLink"
+                class="btn secondary"
+                download="date-with-pritam.ics"
+                >Download Calendar Invite</a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
