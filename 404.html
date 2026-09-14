@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("theme");
+        const theme =
+          savedTheme ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 Not Found - Google Search</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/favicon-16x16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/apple-touch-icon.png"
+    />
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10vh;
+        font-family: arial, sans-serif;
+      }
+      .error-container {
+        max-width: 600px;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .error-logo {
+        width: 150px;
+        margin-bottom: 25px;
+      }
+      .error-heading {
+        font-size: 16px;
+        margin-bottom: 15px;
+        color: var(--text-main);
+      }
+      .error-heading b {
+        font-size: 18px;
+      }
+      .error-text {
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: var(--text-main);
+      }
+      .suggestions-list {
+        margin-top: 15px;
+        padding-left: 25px;
+        color: var(--text-main);
+        line-height: 1.6;
+      }
+      .suggestions-list li {
+        margin-bottom: 8px;
+      }
+      .btn-row {
+        margin-top: 30px;
+      }
+      .home-btn {
+        background-color: #f8f9fa;
+        border: 1px solid #f8f9fa;
+        border-radius: 4px;
+        color: #3c4043;
+        font-size: 14px;
+        padding: 10px 24px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.2s;
+      }
+      .home-btn:hover {
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        border-color: #dadce0;
+        color: #202124;
+      }
+
+      :root[data-theme="dark"] .home-btn {
+        background-color: #303134;
+        color: #e8eaed;
+        border-color: #3c4043;
+      }
+      :root[data-theme="dark"] .home-btn:hover {
+        background-color: #3c4043;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-container">
+      <a href="index.html">
+        <img src="assets/google_logo.svg" alt="Google" class="error-logo" />
+      </a>
+
+      <p class="error-heading"><b>404.</b> That's an error.</p>
+      <p class="error-text">
+        Your search did not match any documents on this server.
+      </p>
+
+      <p class="error-text">Suggestions:</p>
+      <ul class="suggestions-list">
+        <li>Make sure all words are spelled correctly.</li>
+        <li>Try navigating back to the homepage.</li>
+        <li>
+          Take a break and try the
+          <a href="game.html" style="color: var(--link-color)"
+            >Outlier Escape Game</a
+          >.
+        </li>
+      </ul>
+
+      <div class="btn-row">
+        <a href="index.html" class="home-btn">Return to Homepage</a>
+      </div>
+    </div>
+  </body>
+</html>
