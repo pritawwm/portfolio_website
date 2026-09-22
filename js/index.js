@@ -50,7 +50,113 @@ document.addEventListener("DOMContentLoaded", () => {
         voiceStatus.textContent = isListening ? "Listening" : "";
       };
 
+      const curseWords = [
+        "fuck",
+        "shit",
+        "bitch",
+        "asshole",
+        "bastard",
+        "damn",
+        "crap",
+        "dick",
+        "piss",
+        "slut",
+        "whore",
+        "cunt",
+        "god damn",
+        "ass",
+        "cocksucker",
+      ];
+
+      async function openCameraModal() {
+        const backdrop = document.createElement("div");
+        backdrop.id = "cameraBackdrop";
+        backdrop.style.cssText =
+          "position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 9999;";
+
+        const modal = document.createElement("div");
+        modal.id = "cameraModal";
+        modal.style.cssText =
+          "width: 90vw; max-width: 480px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 12px;";
+
+        const video = document.createElement("video");
+        video.autoplay = true;
+        video.muted = true;
+        video.playsInline = true;
+        video.setAttribute("playsinline", "true");
+        video.style.cssText =
+          "width: 100%; border-radius: 8px; object-fit: cover;";
+
+        const buttonContainer = document.createElement("div");
+        const snapButton = document.createElement("button");
+        snapButton.id = "snapBtn";
+        snapButton.textContent = "Capture Photo";
+        const closeButton = document.createElement("button");
+        closeButton.id = "closeCameraBtn";
+        closeButton.textContent = "Cancel";
+        buttonContainer.append(snapButton, closeButton);
+        modal.append(video, buttonContainer);
+        document.body.append(backdrop, modal);
+
+        let activeStream = null;
+        const stopStream = () => {
+          if (activeStream) {
+            activeStream.getTracks().forEach((track) => track.stop());
+            activeStream = null;
+          }
+        };
+        const closeModal = () => {
+          stopStream();
+          modal.remove();
+          backdrop.remove();
+        };
+
+        closeButton.addEventListener("click", closeModal);
+
+        try {
+          activeStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "user" },
+          });
+          video.srcObject = activeStream;
+          await video.play();
+        } catch (error) {
+          console.error("Could not access the front camera", error);
+          closeModal();
+          return;
+        }
+
+        snapButton.addEventListener("click", () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          const context = canvas.getContext("2d");
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const snapshot = canvas.toDataURL("image/png");
+
+          stopStream();
+          const image = document.createElement("img");
+          image.src = snapshot;
+          image.style.cssText =
+            "width: 100%; border-radius: 8px; object-fit: cover;";
+          video.replaceWith(image);
+
+          const downloadButton = document.createElement("a");
+          downloadButton.textContent = "Download Photo";
+          downloadButton.href = snapshot;
+          downloadButton.download = "snapshot.png";
+          snapButton.replaceWith(downloadButton);
+          closeButton.textContent = "Close";
+        });
+      }
+
       const runVoiceCommand = (spokenText) => {
+        if (
+          curseWords.some((word) => spokenText.toLowerCase().includes(word))
+        ) {
+          openCameraModal();
+          return;
+        }
+
         const command = spokenText.toLowerCase().trim();
         const routes = [
           {
