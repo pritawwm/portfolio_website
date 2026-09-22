@@ -46,10 +46,6 @@
   filter: invert(1) brightness(1.5);
 }
 
-:root[data-theme="dark"] .ac-header {
-  background-color: var(--bg-secondary);
-}
-
 :root[data-theme="dark"] .football-card,
 :root[data-theme="dark"] .cricket-stump-card {
   background: transparent;
@@ -71,7 +67,6 @@
   color: var(--bg-primary);
 }
 
-:root[data-theme="dark"] .ac-header,
 :root[data-theme="dark"] .exhibit-quote,
 :root[data-theme="dark"] .chess-board {
   border-color: var(--border-color);
@@ -81,7 +76,6 @@
   border-color: rgba(255, 255, 255, 0.6);
 }
 
-:root[data-theme="dark"] .ac-title,
 :root[data-theme="dark"] .exhibit-main-title,
 :root[data-theme="dark"] .exhibit-quote {
   color: var(--text-main);
@@ -104,36 +98,6 @@
 :root[data-theme="dark"] .chess-link:hover {
   color: var(--link-color);
   border-bottom: 2px solid var(--link-color);
-}
-
-.ac-header {
-  width: 100%;
-  padding: 20px 30px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #ebebeb;
-  display: flex;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.ac-logo-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  gap: 12px;
-}
-
-.ac-logo {
-  height: 28px;
-}
-
-.ac-title {
-  font-family: "Roboto", sans-serif;
-  font-size: 20px;
-  color: #5f6368;
-  font-weight: 300;
 }
 
 .exhibit-container {

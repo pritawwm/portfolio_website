@@ -66,11 +66,6 @@
   padding-left: 10px;
 }
 
-.serp-logo {
-  height: 30px;
-  margin-right: 35px;
-}
-
 .serp-search-box {
   display: flex;
   align-items: center;
@@ -410,12 +405,6 @@
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
-  }
-
-  .serp-logo {
-    margin-right: 0;
-    height: 24px;
-    flex-shrink: 0;
   }
 
   .serp-search-box {

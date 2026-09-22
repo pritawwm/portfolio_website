@@ -53,11 +53,6 @@ body {
   margin-bottom: 25px;
 }
 
-.logo img {
-  width: 272px;
-  max-width: 100%;
-}
-
 .search-container {
   transform: translateZ(0);
   will-change: transform;
@@ -317,10 +312,6 @@ body {
 @media (max-width: 600px) {
   body {
     padding-top: 60px;
-  }
-
-  .logo img {
-    width: 200px;
   }
 
   .buttons-row {
