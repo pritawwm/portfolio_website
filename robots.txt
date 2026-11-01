@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pritamsaha.co.in/sitemap.xml
+Sitemap: https://old.pritamsaha.co.in/sitemap.xml
